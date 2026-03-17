@@ -21,6 +21,7 @@ jobs:
         run: |
           git clone https://github.com/twinstar6980/KairosoftGameManager
       - name: restore certificate
+        shell: bash
         run: |
           mkdir ./KairosoftGameManager/.local
           mkdir ./KairosoftGameManager/.local/certificate
