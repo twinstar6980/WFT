@@ -24,8 +24,10 @@ jobs:
         run: |
           mkdir ./KairosoftGameManager/.local
           mkdir ./KairosoftGameManager/.local/certificate
-          echo -n "${{ secrets.CERTIFICATE_FILE }}" | base64 --decode > ./KairosoftGameManager/.local/certificate/file.pfx
-          echo -n "${{ secrets.CERTIFICATE_PASSWORD }}" | base64 --decode > ./KairosoftGameManager/.local/certificate/password.pfx.txt
+          echo -n "${{ secrets.CERTIFICATE_FILE }}" > ./KairosoftGameManager/.local/certificate/file.pfx.base64.txt
+          base64 -d -i ./KairosoftGameManager/.local/certificate/file.pfx.base64.txt > ./KairosoftGameManager/.local/certificate/file.pfx
+          echo -n "${{ secrets.CERTIFICATE_PASSWORD }}" > ./KairosoftGameManager/.local/certificate/password.pfx.txt.base64.txt
+          base64 -d -i ./KairosoftGameManager/.local/certificate/password.pfx.txt.base64.txt > ./KairosoftGameManager/.local/certificate/password.pfx.txt
       - name: distribute
         run: |
           cd ./KairosoftGameManager
