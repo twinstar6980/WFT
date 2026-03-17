@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: chech out
         uses: actions/checkout@v4
+      - name: prepare MSBuild
+        uses: microsoft/setup-msbuild@v2
       - name: clone
         run: |
           git clone https://github.com/twinstar6980/KairosoftGameManager
