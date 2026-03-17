@@ -31,6 +31,7 @@ jobs:
           echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ./KairosoftGameManager/.local/certificate/file.jks
           echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.jks.txt
           ls ./KairosoftGameManager/.local/certificate
+          echo ./KairosoftGameManager/.local/certificate/password.jks.txt
 # - name: distribute
       #   run: |
       #     cd ./KairosoftGameManager
