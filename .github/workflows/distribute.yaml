@@ -26,9 +26,12 @@ jobs:
         run: |
           mkdir ./KairosoftGameManager/.local
           mkdir ./KairosoftGameManager/.local/certificate
-          echo -n "${{ secrets.CERTIFICATE_FILE     }}" | base64 -d > ./KairosoftGameManager/.local/certificate/file.pfx
-          echo -n "${{ secrets.CERTIFICATE_PASSWORD }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.pfx.txt
-      # - name: distribute
+          echo -n "${{ secrets.CERTIFICATE_FILE_PFX     }}" | base64 -d > ./KairosoftGameManager/.local/certificate/file.pfx
+          echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.pfx.txt
+          echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ./KairosoftGameManager/.local/certificate/file.jks
+          echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.jks.txt
+          ls ./KairosoftGameManager/.local/certificate
+# - name: distribute
       #   run: |
       #     cd ./KairosoftGameManager
       #     python3 ./DISTRIBUTE.py ${{ matrix.target_platform }}
