@@ -1,0 +1,27 @@
+name: distribute
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - target_platform: windows.amd64
+            github_os: windows-latest
+    runs-on: ${{ matrix.github_os }}
+    steps:
+      - name: chech out
+        uses: actions/checkout@v4
+      - name: clone
+        run: |
+          git clone https://github.com/twinstar6980/KairosoftGameManager
+      - name: distribute
+        run: |
+          cd ./KairosoftGameManager
+          python3 ./DISTRIBUTE.py ${{ matrix.target_platform }}
+      - name: upload
+        uses: actions/upload-artifact@v3.2.2
+        with:
+          name: ${{ matrix.target_platform }}
+          path: |
+            ./KairosoftGameManager/.local/distribution
