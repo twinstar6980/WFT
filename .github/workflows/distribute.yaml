@@ -22,6 +22,8 @@ jobs:
           git clone https://github.com/twinstar6980/KairosoftGameManager
       - name: restore certificate
         run: |
+          mkdir ./KairosoftGameManager/.local
+          mkdir ./KairosoftGameManager/.local/certificate
           echo "${{ secrets.CERTIFICATE_FILE }}" | base64 -d > ./KairosoftGameManager/.local/certificate/file.pfx
           echo "${{ secrets.CERTIFICATE_PASSWORD }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.pfx.txt
       - name: distribute
