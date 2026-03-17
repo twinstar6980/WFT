@@ -7,7 +7,7 @@ jobs:
       matrix:
         include:
           - target_platform: windows.amd64
-            github_os: windows-latest
+            github_os: windows-2025-vs2026
     runs-on: ${{ matrix.github_os }}
     steps:
       - name: chech out
@@ -17,6 +17,9 @@ jobs:
         with:
           vs-version: '[18.0,'
           msbuild-architecture: x64
+      - name: prepare MSBuild x
+        run: |
+          vswhere
       - name: clone
         run: |
           git clone https://github.com/twinstar6980/KairosoftGameManager
