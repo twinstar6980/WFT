@@ -20,6 +20,20 @@ jobs:
         with:
           vs-version: '[18.0,'
           msbuild-architecture: x64
+      - name: prepare Xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+      - name: prepare Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.41.x
+      - name: test
+        shell: bash
+        run: |
+          flutter doctor -v
+          tsc --version
       - name: clone
         shell: bash
         run: |
@@ -33,10 +47,11 @@ jobs:
       #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/password.pfx.txt
       #     echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/file.jks
       #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/password.jks.txt
-      - name: distribute
-        run: |
-          cd ${{matrix.repository_path}}
-          python3 ./DISTRIBUTE.py ${{matrix.target_platform}}
+      # - name: distribute
+      #   shell: bash
+      #   run: |
+      #     cd ${{matrix.repository_path}}
+      #     python3 ./DISTRIBUTE.py ${{matrix.target_platform}}
       - name: upload
         uses: actions/upload-artifact@v6
         with:
