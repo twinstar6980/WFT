@@ -1,6 +1,13 @@
 name: distribute
 on:
   workflow_dispatch:
+    inputs:
+      target:
+        description: target platform
+        required: true
+        type: choice
+        options:
+          - windows.amd64
 jobs:
   build:
     strategy:
