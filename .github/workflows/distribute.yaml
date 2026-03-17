@@ -20,7 +20,7 @@ jobs:
           cd ./KairosoftGameManager
           python3 ./DISTRIBUTE.py ${{ matrix.target_platform }}
       - name: upload
-        uses: actions/upload-artifact@v3.2.2
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.target_platform }}
           path: |
