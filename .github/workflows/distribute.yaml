@@ -30,15 +30,13 @@ jobs:
           echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.pfx.txt
           echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ./KairosoftGameManager/.local/certificate/file.jks
           echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ./KairosoftGameManager/.local/certificate/password.jks.txt
-          ls ./KairosoftGameManager/.local/certificate
-          echo ./KairosoftGameManager/.local/certificate/password.jks.txt
-# - name: distribute
-      #   run: |
-      #     cd ./KairosoftGameManager
-      #     python3 ./DISTRIBUTE.py ${{ matrix.target_platform }}
-      # - name: upload
-      #   uses: actions/upload-artifact@v6
-      #   with:
-      #     name: ${{ matrix.target_platform }}.zip
-      #     path: |
-      #       ./KairosoftGameManager/.local/distribution
+      - name: distribute
+        run: |
+          cd ./KairosoftGameManager
+          python3 ./DISTRIBUTE.py ${{ matrix.target_platform }}
+      - name: upload
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ matrix.target_platform }}.zip
+          path: |
+            ./KairosoftGameManager/.local/distribution
