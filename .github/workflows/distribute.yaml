@@ -17,12 +17,13 @@ jobs:
         with:
           vs-version: '[18.0,'
           msbuild-architecture: x64
-      - name: prepare MSBuild x
-        run: |
-          vswhere
       - name: clone
         run: |
           git clone https://github.com/twinstar6980/KairosoftGameManager
+      - name: restore certificate
+        run: |
+          echo "${{ secrets.CERTIFICATE_FILE }}" | base64 -d > ./KairosoftGameManager/.local/certificate.pfx
+          echo "${{ secrets.CERTIFICATE_PASSWORD }}" | base64 -d > ./KairosoftGameManager/.local/password.pfx.txt
       - name: distribute
         run: |
           cd ./KairosoftGameManager
