@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{matrix.github_os}}
     env:
       repository_name: KairosoftGameManager
-      repository_path: ${{env.repository_path}}
+      repository_path: ${{env:repository_path}}
       repository_url: https://github.com/twinstar6980/KairosoftGameManager
     steps:
       - name: chech out
@@ -24,23 +24,23 @@ jobs:
       - name: clone
         shell: bash
         run: |
-          git clone ${{env.repository_url}}
+          git clone ${{env:repository_url}}
       # - name: restore certificate
       #   shell: bash
       #   run: |
-      #     mkdir ${{env.repository_path}}/.local
-      #     mkdir ${{env.repository_path}}/.local/certificate
-      #     echo -n "${{ secrets.CERTIFICATE_FILE_PFX     }}" | base64 -d > ${{env.repository_path}}/.local/certificate/file.pfx
-      #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ${{env.repository_path}}/.local/certificate/password.pfx.txt
-      #     echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ${{env.repository_path}}/.local/certificate/file.jks
-      #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ${{env.repository_path}}/.local/certificate/password.jks.txt
+      #     mkdir ${{env:repository_path}}/.local
+      #     mkdir ${{env:repository_path}}/.local/certificate
+      #     echo -n "${{ secrets.CERTIFICATE_FILE_PFX     }}" | base64 -d > ${{env:repository_path}}/.local/certificate/file.pfx
+      #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ${{env:repository_path}}/.local/certificate/password.pfx.txt
+      #     echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ${{env:repository_path}}/.local/certificate/file.jks
+      #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ${{env:repository_path}}/.local/certificate/password.jks.txt
       - name: distribute
         run: |
-          cd ${{env.repository_path}}
+          cd ${{env:repository_path}}
           python3 ./DISTRIBUTE.py ${{matrix.target_platform}}
       - name: upload
         uses: actions/upload-artifact@v6
         with:
           name: ${{matrix.target_platform}}.zip
           path: |
-            ${{env.repository_path}}/.local/distribution
+            ${{env:repository_path}}/.local/distribution
