@@ -12,11 +12,11 @@ runs:
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r${{ inputs.version }}
-        add-to-path: true
+        add-to-path: false
     - name: check
       shell: pwsh
       run: |
         echo $env:ANDROID_NDK_HOME
-        echo $env:GITHUB_PATH
+        echo $env:GITHUB_ENV
         echo $env:PATH
         apksigner --version
