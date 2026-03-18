@@ -19,4 +19,7 @@ runs:
     - name: check
       shell: pwsh
       run: |
+        mt /?
+        makepri /?
+        makeappx /?
         signtool /?

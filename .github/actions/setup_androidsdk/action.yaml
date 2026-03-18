@@ -32,4 +32,5 @@ runs:
       run: |
         Write-Host $env:ANDROID_HOME
         Write-Host $env:ANDROID_NDK_HOME
+        zipalign
         apksigner --version

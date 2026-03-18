@@ -48,5 +48,4 @@ runs:
       shell: pwsh
       run: |
         clang --version
-        clang-22 --version
         llvm-strip --version
