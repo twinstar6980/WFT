@@ -8,13 +8,13 @@ inputs:
 runs:
   using: composite
   steps:
-    - id: check
+    - name: xx
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/cmdline-tools/latest/bin"
         Get-Content -Path $env:GITHUB_PATH
         echo $env:PATH
-    - id: check
+    - name: check
       shell: pwsh
       run: |
         echo $env:ANDROID_HOME
