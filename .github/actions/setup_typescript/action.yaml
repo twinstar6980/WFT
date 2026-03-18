@@ -12,7 +12,7 @@ runs:
       shell: pwsh
       run: |
         npm list -g
-        npm install -g typescript@${{ inputs.version }}"
+        npm install -g typescript@${{ inputs.version }}
     - name: check
       shell: pwsh
       run: |
