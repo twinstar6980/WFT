@@ -9,8 +9,8 @@ runs:
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Force -Path "${{ inputs.destination }}"
-        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/file.pfx"
-        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/password.pfx.txt"
-        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/file.jks"
-        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/password.jks.txt"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -AsByteStream -Path "${{ inputs.destination }}/file.pfx"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -AsByteStream -Path "${{ inputs.destination }}/password.pfx.txt"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -AsByteStream -Path "${{ inputs.destination }}/file.jks"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -AsByteStream -Path "${{ inputs.destination }}/password.jks.txt"
         Get-ChildItem -Recurse -Path "${{ inputs.destination }}"
