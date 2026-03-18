@@ -21,31 +21,6 @@ jobs:
     steps:
       - name: check out
         uses: actions/checkout@v4
-      - name: download certificate
-        uses: ./.github/actions/download_certificate
-        with:
-          destination: ${{ matrix.repository_path }}/.local/distribution
-      - name: setup msbuild
-        if: inputs.platform == 'windows.amd64'
-        uses: ./.github/actions/setup_msbuild
-        with:
-          platform: ${{ inputs.platform }}
-          version: '18.3.0'
-      - name: setup xmake
-        uses: ./.github/actions/setup_xmake
-        with:
-          platform: ${{ inputs.platform }}
-          version: '3.0.7'
-      - name: setup flutter
-        uses: ./.github/actions/setup_flutter
-        with:
-          platform: ${{ inputs.platform }}
-          version: '3.41.4'
-      - name: setup python
-        uses: ./.github/actions/setup_python
-        with:
-          platform: ${{ inputs.platform }}
-          version: '3.14.3'
       - name: setup windows-sdk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_windowssdk
@@ -64,6 +39,31 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '21'
+      # - name: download certificate
+      #   uses: ./.github/actions/download_certificate
+      #   with:
+      #     destination: ${{ matrix.repository_path }}/.local/distribution
+      # - name: setup msbuild
+      #   if: inputs.platform == 'windows.amd64'
+      #   uses: ./.github/actions/setup_msbuild
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '18.3.0'
+      # - name: setup xmake
+      #   uses: ./.github/actions/setup_xmake
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '3.0.7'
+      # - name: setup flutter
+      #   uses: ./.github/actions/setup_flutter
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '3.41.4'
+      # - name: setup python
+      #   uses: ./.github/actions/setup_python
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '3.14.3'
   build:
     strategy:
       matrix:
