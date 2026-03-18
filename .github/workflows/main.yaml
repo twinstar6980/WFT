@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: platform
+        required: true
+        type: choice
+        options:
+          - windows.amd64
+          - linux.amd64
+          - macintosh.arm64
+          - android.arm64
+          - iphone.arm64
+jobs:
+  build:
+    uses: ./.github/workflows/distribute.yaml
+    with:
+      platform: ${{ inputs.platform }}

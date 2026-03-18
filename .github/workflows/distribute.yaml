@@ -1,23 +1,31 @@
-name: distribute
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       platform:
         description: platform
         required: true
-        type: choice
-        options:
-          - windows.amd64
-          - linux.amd64
-          - macintosh.arm64
-          - android.arm64
-          - iphone.arm64
-defaults:
-  run:
-    shell: pwsh
+        type: string
 jobs:
-  test1:
-    runs-on: windows-2025-vs2026
+  distribute:
+    strategy:
+      matrix:
+        include:
+          - platform: windows.amd64
+            runs_on: windows-2025-vs2026
+          - platform: linux.amd64
+            runs_on: ubuntu-latest
+          - platform: macintosh.arm64
+            runs_on: macos-latest
+          - platform: android.arm64
+            runs_on: ubuntu-latest
+          - platform: iphone.arm64
+            runs_on: macos-latest
+    if: ${{ matrix.platform == inputs.platform }}
+    runs-on: ${{ matrix.runs_on }}
+    env:
+      repository_name: KairosoftGameManager
+      repository_path: $env:GITHUB_WORKSPACE/KairosoftGameManager
+      repository_url: https://github.com/twinstar6980/KairosoftGameManager
     steps:
       - name: check out
         uses: actions/checkout@v4
@@ -33,7 +41,7 @@ jobs:
           platform: ${{ inputs.platform }}
           version: '26100'
       - name: setup android-sdk
-        if: inputs.platform == 'windows.amd64'
+        if: inputs.platform == 'android.arm64'
         uses: ./.github/actions/setup_androidsdk
         with:
           platform: ${{ inputs.platform }}
@@ -41,19 +49,17 @@ jobs:
           build_version: '36.1.0'
           ndk_version: '29.0.14206865'
       - name: setup llvm
-        if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_llvm
         with:
           platform: ${{ inputs.platform }}
           version: '21'
-          windows_version: '20260311'
+          windows_version: '20251216'
       - name: setup xmake
         uses: ./.github/actions/setup_xmake
         with:
           platform: ${{ inputs.platform }}
           version: '3.0.7'
       - name: setup typescript
-        if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_typescript
         with:
           platform: ${{ inputs.platform }}
@@ -72,32 +78,19 @@ jobs:
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
-          destination: ${{ matrix.repository_path }}/.local/distribution
-  # build:
-  #   strategy:
-  #     matrix:
-  #       include:
-  #         - platform: windows.amd64
-  #           github_os: windows-2025-vs2026
-  #           repository_name: KairosoftGameManager
-  #           repository_path: ./KairosoftGameManager
-  #           repository_url: https://github.com/twinstar6980/KairosoftGameManager
-  #   runs-on: ${{matrix.github_os}}
-  #   steps:
-  #     - name: chech out
-  #       uses: actions/checkout@v4
-  #     - name: clone
-  #       shell: pwsh
-  #       run: |
-  #         git clone ${{matrix.repository_url}}
-  #     # - name: distribute
-  #     #   shell: pwsh
-  #     #   run: |
-  #     #     cd ${{matrix.repository_path}}
-  #     #     python3 ./DISTRIBUTE.py ${{matrix.platform}}
-  #     - name: upload
-  #       uses: actions/upload-artifact@v6
-  #       with:
-  #         name: ${{matrix.platform}}.zip
-  #         path: |
-  #           ${{matrix.repository_path}}/.local/distribution
+          destination: $env:repository_path/.local/distribution
+      - name: clone
+        shell: pwsh
+        run: |
+          git clone $env:repository_url
+      - name: distribute
+        shell: pwsh
+        run: |
+          cd $env:repository_path
+          python3 "$env:GITHUB_WORKSPACE/DISTRIBUTE.py" "${{ inputs.platform }}"
+      - name: upload
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ inputs.platform }}.zip
+          path: |
+            $env:repository_path/.local/distribution
