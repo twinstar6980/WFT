@@ -45,6 +45,7 @@ runs:
         brew update
         brew install llvm@21
     - name: check
+      if: inputs.platform != 'android.amd64'
       shell: pwsh
       run: |
         clang --version
