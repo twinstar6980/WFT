@@ -20,6 +20,7 @@ jobs:
   test1:
     runs-on: windows-2025-vs2026
     steps:
+      - run: ls -r .
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
