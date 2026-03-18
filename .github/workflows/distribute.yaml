@@ -21,12 +21,12 @@ jobs:
     steps:
       - name: check out
         uses: actions/checkout@v4
-      - name: setup typescript
-        if: inputs.platform == 'windows.amd64'
-        uses: ./.github/actions/setup_typescript
-        with:
-          platform: ${{ inputs.platform }}
-          version: '5.9.3'
+      # - name: setup typescript
+      #   if: inputs.platform == 'windows.amd64'
+      #   uses: ./.github/actions/setup_typescript
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '5.9.3'
       - name: setup llvm
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_llvm

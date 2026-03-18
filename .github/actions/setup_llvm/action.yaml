@@ -12,14 +12,10 @@ runs:
       if: inputs.platform == 'windows.amd64'
       shell: pwsh
       run: |
-        LLVM_VERSION="${{ inputs.version }}"
-        LLVM_URL="https://github.com/mstorsjo/llvm-mingw/releases/download/${LLVM_VERSION}/llvm-mingw-${LLVM_VERSION}-ucrt-x86_64.zip"
-        LLVM_DIR="/c/llvm-mingw"
-        curl -L -o llvm-mingw.zip "${LLVM_URL}"
-        unzip -q llvm-mingw.zip -d "/c/"
-        mv "/c/llvm-mingw-${LLVM_VERSION}-ucrt-x86_64" "${LLVM_DIR}"
-        rm llvm-mingw.zip
-        echo "${LLVM_DIR}/bin" >> $GITHUB_PATH
+        Invoke-WebRequest -Uri "https://github.com/mstorsjo/llvm-mingw/releases/download/${{ inputs.version }}/llvm-mingw-${{ inputs.version }}-ucrt-x86_64.zip" -OutFile "./.local/development/llvm-mingw.zip"
+        Expand-Archive -Force -Path "./.local/development/llvm-mingw.zip" -DestinationPath "./.local/development/llvm-mingw"
+        Remove-Item "./.local/development/llvm-mingw.zip"
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "./.local/development/llvm-mingw/bin"
     - name: install
       if: inputs.platform == 'linux.amd64'
       shell: pwsh
@@ -47,6 +43,5 @@ runs:
     - name: check
       shell: pwsh
       run: |
-        flutter doctor -v
-        tsc --version
-        xmake --version
+        clang --version
+        llvm-strip --version

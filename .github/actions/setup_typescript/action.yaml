@@ -11,10 +11,8 @@ runs:
     - name: install
       shell: pwsh
       run: |
-        npm list -g
         npm install -g typescript@${{ inputs.version }}
     - name: check
       shell: pwsh
       run: |
-        npm list -g
         tsc --version
