@@ -20,7 +20,7 @@ runs:
         echo $env:ANDROID_HOME
         echo $env:PATH
         sdkmanager --version
-        sdkmanager --install cmdline-tools;12.0
+        sdkmanager --install cmdline-tools;latest
         sdkmanager --version
         sdkmanager --install platform-tools platforms;android-35 build-tools;35.0.0
         apksigner --version
