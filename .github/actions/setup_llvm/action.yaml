@@ -47,7 +47,6 @@ runs:
     - name: check
       shell: pwsh
       run: |
-        Get-ChildItem -Recurse -Path "$env:GITHUB_WORKSPACE/.local/development/llvm-mingw/bin"
         echo $env:PATH
         clang --version
         clang-21 --version
