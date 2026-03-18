@@ -64,31 +64,31 @@ jobs:
       #   with:
       #     platform: ${{ inputs.platform }}
       #     version: '3.14.3'
-  build:
-    strategy:
-      matrix:
-        include:
-          - platform: windows.amd64
-            github_os: windows-2025-vs2026
-            repository_name: KairosoftGameManager
-            repository_path: ./KairosoftGameManager
-            repository_url: https://github.com/twinstar6980/KairosoftGameManager
-    runs-on: ${{matrix.github_os}}
-    steps:
-      - name: chech out
-        uses: actions/checkout@v4
-      - name: clone
-        shell: pwsh
-        run: |
-          git clone ${{matrix.repository_url}}
-      # - name: distribute
-      #   shell: pwsh
-      #   run: |
-      #     cd ${{matrix.repository_path}}
-      #     python3 ./DISTRIBUTE.py ${{matrix.platform}}
-      - name: upload
-        uses: actions/upload-artifact@v6
-        with:
-          name: ${{matrix.platform}}.zip
-          path: |
-            ${{matrix.repository_path}}/.local/distribution
+  # build:
+  #   strategy:
+  #     matrix:
+  #       include:
+  #         - platform: windows.amd64
+  #           github_os: windows-2025-vs2026
+  #           repository_name: KairosoftGameManager
+  #           repository_path: ./KairosoftGameManager
+  #           repository_url: https://github.com/twinstar6980/KairosoftGameManager
+  #   runs-on: ${{matrix.github_os}}
+  #   steps:
+  #     - name: chech out
+  #       uses: actions/checkout@v4
+  #     - name: clone
+  #       shell: pwsh
+  #       run: |
+  #         git clone ${{matrix.repository_url}}
+  #     # - name: distribute
+  #     #   shell: pwsh
+  #     #   run: |
+  #     #     cd ${{matrix.repository_path}}
+  #     #     python3 ./DISTRIBUTE.py ${{matrix.platform}}
+  #     - name: upload
+  #       uses: actions/upload-artifact@v6
+  #       with:
+  #         name: ${{matrix.platform}}.zip
+  #         path: |
+  #           ${{matrix.repository_path}}/.local/distribution
