@@ -27,7 +27,7 @@ jobs:
       repository_url: https://github.com/twinstar6980/KairosoftGameManager
     steps:
       - name: check
-        -if: ${{ matrix.platform == inputs.platform }}
+        if: ${{ matrix.platform == inputs.platform }}
         run: |
          exit 0
       - name: check out
