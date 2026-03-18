@@ -19,6 +19,8 @@ jobs:
   test1:
     runs-on: windows-2025-vs2026
     steps:
+      - name: chech out
+        uses: actions/checkout@v4
       - run: ls -R -a ./.github
       - name: download certificate
         uses: ./.github/actions/download_certificate
