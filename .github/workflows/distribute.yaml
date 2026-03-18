@@ -27,7 +27,7 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '26100'
-      - name: setup android-bdk
+      - name: setup android-ndk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_androidndk
         with:

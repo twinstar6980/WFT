@@ -19,8 +19,9 @@ runs:
       run: |
         echo $env:ANDROID_NDK_HOME
         Get-Content -Path $env:GITHUB_ENV
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}"
+        Add-Content -Encoding utf8 -Path $env:GITHUB_ENV -Value "ANDROID_NDK_HOME=${{ steps.install.outputs.ndk-path }}"
         echo $env:ANDROID_NDK_HOME
-        Get-ChildItem -Path "${{ steps.setup-ndk.outputs.ndk-path }}"
+        Get-Content -Path $env:GITHUB_ENV
+        Get-ChildItem -Path "${{ steps.install.outputs.ndk-path }}"
         echo $env:PATH
         apksigner --version
