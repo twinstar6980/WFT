@@ -39,12 +39,12 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '21'
-      - name: setup windows-sdk
-        if: inputs.platform == 'windows.amd64'
-        uses: ./.github/actions/setup_windowssdk
-        with:
-          platform: ${{ inputs.platform }}
-          version: '26100'
+      # - name: setup windows-sdk
+      #   if: inputs.platform == 'windows.amd64'
+      #   uses: ./.github/actions/setup_windowssdk
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '26100'
       # - name: download certificate
       #   uses: ./.github/actions/download_certificate
       #   with:
