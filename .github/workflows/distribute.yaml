@@ -27,7 +27,7 @@ jobs:
       repository_url: https://github.com/twinstar6980/KairosoftGameManager
     steps:
       - name: check
-        if: ${{ matrix.platform == inputs.platform }}
+        if: ${{ matrix.platform != inputs.platform }}
         run: |
          exit 0
       - name: check out
@@ -35,48 +35,48 @@ jobs:
       - name: setup python
         uses: ./.github/actions/setup_python
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '3.14.3'
       - name: setup windows-sdk
-        if: inputs.platform == 'windows.amd64'
+        if: matrix.platform == 'windows.amd64'
         uses: ./.github/actions/setup_windowssdk
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '26100'
       - name: setup android-sdk
-        if: inputs.platform == 'android.arm64'
+        if: matrix.platform == 'android.arm64'
         uses: ./.github/actions/setup_androidsdk
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '36.1'
           build_version: '36.1.0'
           ndk_version: '29.0.14206865'
       - name: setup llvm
         uses: ./.github/actions/setup_llvm
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '21'
           windows_version: '20251216'
       - name: setup xmake
         uses: ./.github/actions/setup_xmake
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '3.0.7'
       - name: setup typescript
         uses: ./.github/actions/setup_typescript
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '5.9.3'
       - name: setup flutter
         uses: ./.github/actions/setup_flutter
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '3.41.4'
       - name: setup msbuild
-        if: inputs.platform == 'windows.amd64'
+        if: matrix.platform == 'windows.amd64'
         uses: ./.github/actions/setup_msbuild
         with:
-          platform: ${{ inputs.platform }}
+          platform: ${{ matrix.platform }}
           version: '18.3.0'
       - name: download certificate
         uses: ./.github/actions/download_certificate
@@ -90,10 +90,10 @@ jobs:
         shell: pwsh
         run: |
           cd $env:repository_path
-          python3 "$env:GITHUB_WORKSPACE/DISTRIBUTE.py" "${{ inputs.platform }}"
+          python3 "$env:GITHUB_WORKSPACE/DISTRIBUTE.py" "${{ matrix.platform }}"
       - name: upload
         uses: actions/upload-artifact@v6
         with:
-          name: ${{ inputs.platform }}.zip
+          name: ${{ matrix.platform }}.zip
           path: |
             $env:repository_path/.local/distribution
