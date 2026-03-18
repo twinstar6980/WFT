@@ -72,15 +72,14 @@ jobs:
       #   with:
       #     platform: ${{ inputs.platform }}
       #     version: '18.3.0'
+      - name: clone
+        shell: pwsh
+        run: |
+          git clone "${{ env.repository_url }}"
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
           destination: ${{ env.repository_path }}/.local/certificate
-      - name: clone
-        shell: pwsh
-        run: |
-          ls .
-          git clone "${{ env.repository_url }}"
       - name: distribute
         shell: pwsh
         run: |
