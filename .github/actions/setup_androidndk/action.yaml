@@ -16,4 +16,7 @@ runs:
     - name: check
       shell: pwsh
       run: |
-        echo $ANDROID_NDK_HOME
+        echo $env:ANDROID_NDK_HOME
+        echo $env:GITHUB_PATH
+        echo $env:PATH
+        apksigner --version
