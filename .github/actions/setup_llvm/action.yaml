@@ -33,6 +33,7 @@ runs:
       run: |
         brew update
         brew install llvm@21
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@21/bin"
     - name: install
       if: inputs.platform == 'android.arm64'
       shell: pwsh
@@ -44,6 +45,7 @@ runs:
       run: |
         brew update
         brew install llvm@21
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@21/bin"
     - name: check
       if: inputs.platform != 'android.arm64'
       shell: pwsh
