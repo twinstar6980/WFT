@@ -32,7 +32,9 @@ jobs:
         uses: ./.github/actions/setup_androidndk
         with:
           platform: ${{ inputs.platform }}
-          version: '29'
+          version: '36.1'
+          build_version: '36.1.0'
+          ndk_version: '29.0.14206865'
       - name: setup llvm
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_llvm

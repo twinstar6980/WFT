@@ -5,6 +5,12 @@ inputs:
   version:
     description: version
     required: true
+  build_version:
+    description: build version
+    required: true
+  ndk_version:
+    description: ndk version
+    required: true
 runs:
   using: composite
   steps:
@@ -12,12 +18,22 @@ runs:
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/cmdline-tools/latest/bin"
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/build-tools/35.0.0"
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/build-tools/${{ inputs.build_version }}"
     - name: check
       shell: pwsh
       run: |
-        echo $env:ANDROID_HOME
+        Write-Host $env:ANDROID_HOME
+        Write-Host $env:ANDROID_NDK_HOME
         Get-Content -Path $env:GITHUB_PATH
-        sdkmanager --version
-        sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+        sdkmanager --install "platform-tools" "platforms;android-${{ inputs.version }}" "build-tools;${{ inputs.build_version }}" "ndk;${{ inputs.ndk_version }}"
+    - name: xx
+      shell: pwsh
+      run: |
+        Add-Content -Encoding utf8 -Path $env:GITHUB_ENV -Value "ANDROID_NDK_HOME=$env:ANDROID_HOME/ndk/${{ inputs.ndk_version }}"
+        Write-Host $env:ANDROID_NDK_HOME
+    - name: xx
+      shell: pwsh
+      run: |
+        Write-Host $env:ANDROID_HOME
+        Write-Host $env:ANDROID_NDK_HOME
         apksigner --version
