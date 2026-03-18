@@ -1,0 +1,18 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        flutter-version: ${{ inputs.version }}.x
+    - name: check
+      run: |
+        flutter doctor -v

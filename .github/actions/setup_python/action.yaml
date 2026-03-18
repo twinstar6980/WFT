@@ -1,0 +1,18 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      uses: actions/setup-python@v6
+      with:
+        python-version: ${{ inputs.version }}
+    - name: check
+      shell: bash
+      run: |
+        python3 --version

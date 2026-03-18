@@ -1,0 +1,16 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: check
+      shell: bash
+      run: |
+        flutter doctor -v
+        tsc --version
+        xmake --version

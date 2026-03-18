@@ -1,0 +1,17 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      uses: GuillaumeFalourd/setup-windows10-sdk-action@v2.4
+      with:
+        sdk-version: ${{ inputs.version }}
+    - name: check
+      run: |
+        signtool

@@ -1,4 +1,4 @@
-name: test
+name: check
 on:
   workflow_dispatch:
 jobs:
@@ -6,15 +6,15 @@ jobs:
     strategy:
       matrix:
         include:
-          - target_platform: windows.amd64
+          - platform: windows.amd64
             github_os: windows-latest
-          - target_platform: linux.amd64
+          - platform: linux.amd64
             github_os: ubuntu-latest
-          - target_platform: macintosh.arm64
+          - platform: macintosh.arm64
             github_os: macos-latest
-          - target_platform: android.arm64
+          - platform: android.arm64
             github_os: ubuntu-latest
-          - target_platform: iphone.arm64
+          - platform: iphone.arm64
             github_os: macos-latest
     runs-on: ${{ matrix.github_os }}
     steps:

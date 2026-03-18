@@ -1,0 +1,15 @@
+inputs:
+  destination:
+    description: destination
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: download
+      run: |
+        mkdir ${{ inputs.destination }}
+        echo -n "${{ secrets.CERTIFICATE_FILE_PFX     }}" | base64 -d > ${{ inputs.destination }}/file.pfx
+        echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ${{ inputs.destination }}/password.pfx.txt
+        echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ${{ inputs.destination }}/file.jks
+        echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ${{ inputs.destination }}/password.jks.txt
+        ls ${{ inputs.destination }}

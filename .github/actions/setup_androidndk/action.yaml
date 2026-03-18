@@ -1,0 +1,18 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      uses: nttld/setup-ndk@v1
+      with:
+        ndk-version: r${{ inputs.version }}
+        add-to-path: true
+    - name: check
+      run: |
+        echo $ANDROID_NDK_HOME

@@ -2,18 +2,67 @@ name: distribute
 on:
   workflow_dispatch:
     inputs:
-      target:
-        description: target platform
+      platform:
+        description: platform
         required: true
         type: choice
         options:
           - windows.amd64
+          - linux.amd64
+          - macintosh.arm64
+          - android.arm64
+          - iphone.arm64
+defaults:
+  run:
+    shell: bash
+    working-directory: .
 jobs:
+  test1:
+    steps:
+      - name: setup msbuild
+        if: inputs.platform == 'windows.amd64'
+        uses: ./.github/actions/setup_msbuild
+        with:
+          platform: ${{ inputs.platform }}
+          version: 18.0
+      - name: prepare xmake
+        uses: ./.github/actions/setup_xmake
+        with:
+          platform: ${{ inputs.platform }}
+          version: latest
+      - name: prepare flutter
+        uses: ./.github/actions/setup_flutter
+        with:
+          platform: ${{ inputs.platform }}
+          version: 3.41
+      - name: prepare python
+        uses: ./.github/actions/setup_python
+        with:
+          platform: ${{ inputs.platform }}
+          version: 3.14
+      - name: setup windows-sdk
+        if: inputs.platform == 'windows.amd64'
+        uses: ./.github/actions/setup_windowssdk
+        with:
+          platform: ${{ inputs.platform }}
+          version: 26100
+      - name: setup android-bdk
+        if: inputs.platform == 'windows.amd64'
+        uses: ./.github/actions/setup_androidndk
+        with:
+          platform: ${{ inputs.platform }}
+          version: 29
+      - name: setup llvm
+        if: inputs.platform == 'windows.amd64'
+        uses: ./.github/actions/setup_llvm
+        with:
+          platform: ${{ inputs.platform }}
+          version: 21
   build:
     strategy:
       matrix:
         include:
-          - target_platform: windows.amd64
+          - platform: windows.amd64
             github_os: windows-2025-vs2026
             repository_name: KairosoftGameManager
             repository_path: ./KairosoftGameManager
@@ -36,7 +85,11 @@ jobs:
         with:
           channel: stable
           flutter-version: 3.41.x
-      - name: test
+      - name: restore certificate
+        uses: ./.github/actions/download_certificate
+        with:
+          destination: ${{ matrix.repository_path }}/.local/distribution
+      - name: check
         shell: bash
         run: |
           flutter doctor -v
@@ -45,23 +98,14 @@ jobs:
         shell: bash
         run: |
           git clone ${{matrix.repository_url}}
-      # - name: restore certificate
-      #   shell: bash
-      #   run: |
-      #     mkdir ${{matrix.repository_path}}/.local
-      #     mkdir ${{matrix.repository_path}}/.local/certificate
-      #     echo -n "${{ secrets.CERTIFICATE_FILE_PFX     }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/file.pfx
-      #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_PFX }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/password.pfx.txt
-      #     echo -n "${{ secrets.CERTIFICATE_FILE_JKS     }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/file.jks
-      #     echo -n "${{ secrets.CERTIFICATE_PASSWORD_JKS }}" | base64 -d > ${{matrix.repository_path}}/.local/certificate/password.jks.txt
       # - name: distribute
       #   shell: bash
       #   run: |
       #     cd ${{matrix.repository_path}}
-      #     python3 ./DISTRIBUTE.py ${{matrix.target_platform}}
+      #     python3 ./DISTRIBUTE.py ${{matrix.platform}}
       - name: upload
         uses: actions/upload-artifact@v6
         with:
-          name: ${{matrix.target_platform}}.zip
+          name: ${{matrix.platform}}.zip
           path: |
             ${{matrix.repository_path}}/.local/distribution

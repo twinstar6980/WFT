@@ -1,0 +1,17 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      uses: xmake-io/github-action-setup-xmake@v1
+      with:
+        xmake-version: ${{ inputs.version }}
+    - name: check
+      run: |
+        xmake --version
