@@ -11,9 +11,8 @@ runs:
     - id: check
       shell: pwsh
       run: |
-        echo $env:PATH
         echo $env:ANDROID_HOME
-        Get-ChildItem -Path $env:ANDROID_HOME
+        Get-ChildItem -Path $env:ANDROID_HOME/cmdline-tools
         sdkmanager --version
         sdkmanager --install cmdline-tools;12.0
         sdkmanager --version
