@@ -14,6 +14,6 @@ runs:
         ndk-version: r${{ inputs.version }}
         add-to-path: true
     - name: check
-      shell: bash
+      shell: pwsh
       run: |
         echo $ANDROID_NDK_HOME

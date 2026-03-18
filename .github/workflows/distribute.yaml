@@ -14,14 +14,13 @@ on:
           - iphone.arm64
 defaults:
   run:
-    shell: bash
+    shell: pwsh
 jobs:
   test1:
     runs-on: windows-2025-vs2026
     steps:
       - name: check out
         uses: actions/checkout@v4
-      - run: ls -R -a ./.github
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
@@ -32,21 +31,21 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '18.0'
-      - name: prepare xmake
+      - name: setup xmake
         uses: ./.github/actions/setup_xmake
         with:
           platform: ${{ inputs.platform }}
-          version: latest
-      - name: prepare flutter
+          version: '3.0.7'
+      - name: setup flutter
         uses: ./.github/actions/setup_flutter
         with:
           platform: ${{ inputs.platform }}
-          version: '3.41'
-      - name: prepare python
+          version: '3.41.4'
+      - name: setup python
         uses: ./.github/actions/setup_python
         with:
           platform: ${{ inputs.platform }}
-          version: '3.14'
+          version: '3.14.3'
       - name: setup windows-sdk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_windowssdk
@@ -79,11 +78,11 @@ jobs:
       - name: chech out
         uses: actions/checkout@v4
       - name: clone
-        shell: bash
+        shell: pwsh
         run: |
           git clone ${{matrix.repository_url}}
       # - name: distribute
-      #   shell: bash
+      #   shell: pwsh
       #   run: |
       #     cd ${{matrix.repository_path}}
       #     python3 ./DISTRIBUTE.py ${{matrix.platform}}

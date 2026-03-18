@@ -6,7 +6,7 @@ runs:
   using: composite
   steps:
     - name: download
-      shell: bash
+      shell: pwsh
       run: |
         mkdir -p ${{ inputs.destination }}
         echo -n "${{ secrets.CERTIFICATE_FILE_PFX     }}" | base64 -d > ${{ inputs.destination }}/file.pfx
