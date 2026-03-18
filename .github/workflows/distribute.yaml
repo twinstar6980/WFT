@@ -75,7 +75,7 @@ jobs:
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
-          destination: $env:repository_path/.local/distribution
+          destination: "$($env:repository_path)/.local/distribution"
       - name: clone
         shell: pwsh
         run: |
