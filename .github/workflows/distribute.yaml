@@ -21,15 +21,9 @@ jobs:
     steps:
       - name: check out
         uses: actions/checkout@v4
-      - name: setup windows-sdk
+      - name: setup android-sdk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_androidsdk
-        with:
-          platform: ${{ inputs.platform }}
-          version: '14742923'
-      - name: setup android-ndk
-        if: inputs.platform == 'windows.amd64'
-        uses: ./.github/actions/setup_androidndk
         with:
           platform: ${{ inputs.platform }}
           version: '36.1'
