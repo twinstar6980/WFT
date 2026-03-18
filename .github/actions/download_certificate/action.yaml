@@ -8,9 +8,9 @@ runs:
     - name: download
       shell: pwsh
       run: |
-        mkdir -p ${{ inputs.destination }}
-        echo -n "MQ==" | base64 -d > ${{ inputs.destination }}/file.pfx
-        echo -n "MQ==" | base64 -d > ${{ inputs.destination }}/password.pfx.txt
-        echo -n "MQ==" | base64 -d > ${{ inputs.destination }}/file.jks
-        echo -n "MQ==" | base64 -d > ${{ inputs.destination }}/password.jks.txt
-        ls ${{ inputs.destination }}
+        New-Item -ItemType Directory -Force -Path "${{ inputs.destination }}"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/file.pfx"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/password.pfx.txt"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/file.jks"
+        [System.Convert]::FromBase64String("MQ==") | Set-Content -Encoding Byte -Path "${{ inputs.destination }}/password.jks.txt"
+        Get-ChildItem -Recurse -Path "${{ inputs.destination }}"
