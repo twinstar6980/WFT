@@ -20,13 +20,16 @@ jobs:
             runs_on: ubuntu-latest
           - platform: iphone.arm64
             runs_on: macos-latest
-    if: ${{ matrix.platform == inputs.platform }}
     runs-on: ${{ matrix.runs_on }}
     env:
       repository_name: KairosoftGameManager
       repository_path: $env:GITHUB_WORKSPACE/KairosoftGameManager
       repository_url: https://github.com/twinstar6980/KairosoftGameManager
     steps:
+      - name: check
+        -if: ${{ matrix.platform == inputs.platform }}
+        run: |
+         exit 0
       - name: check out
         uses: actions/checkout@v4
       - name: setup python
