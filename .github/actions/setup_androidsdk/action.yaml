@@ -1,0 +1,19 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      uses: android-actions/setup-android@v3
+      with:
+        cmdline-tools-version: ${{ inputs.version }}
+    - id: check
+      shell: pwsh
+      run: |
+        echo $env:PATH
+        apksigner --version
