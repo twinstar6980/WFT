@@ -31,7 +31,7 @@ jobs:
         uses: ./.github/actions/setup_msbuild
         with:
           platform: ${{ inputs.platform }}
-          version: 18.0
+          version: '18.0'
       - name: prepare xmake
         uses: ./.github/actions/setup_xmake
         with:
@@ -41,30 +41,30 @@ jobs:
         uses: ./.github/actions/setup_flutter
         with:
           platform: ${{ inputs.platform }}
-          version: 3.41
+          version: '3.41'
       - name: prepare python
         uses: ./.github/actions/setup_python
         with:
           platform: ${{ inputs.platform }}
-          version: 3.14
+          version: '3.14'
       - name: setup windows-sdk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_windowssdk
         with:
           platform: ${{ inputs.platform }}
-          version: 26100
+          version: '26100'
       - name: setup android-bdk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_androidndk
         with:
           platform: ${{ inputs.platform }}
-          version: 29
+          version: '29'
       - name: setup llvm
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_llvm
         with:
           platform: ${{ inputs.platform }}
-          version: 21
+          version: '21'
   build:
     strategy:
       matrix:
