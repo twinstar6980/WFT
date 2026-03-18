@@ -12,7 +12,7 @@ runs:
       if: inputs.platform == 'windows.amd64'
       uses: microsoft/setup-msbuild@v2
       with:
-        vs-version: '[${{ inputs.version }}, ${{ inputs.version }}]'
+        vs-version: '[${{ inputs.version }}, )'
         msbuild-architecture: x64
     - name: check
       shell: pwsh
