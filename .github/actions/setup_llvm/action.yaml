@@ -47,5 +47,7 @@ runs:
     - name: check
       shell: pwsh
       run: |
+        echo $env:PATH
         clang --version
+        clang-21 --version
         llvm-strip --version
