@@ -83,8 +83,7 @@ jobs:
       - name: distribute
         shell: pwsh
         run: |
-          cd "${{ env.repository_path }}"
-          python3 "${{ env.GITHUB_WORKSPACE }}/DISTRIBUTE.py" "${{ inputs.platform }}"
+          python3 "${{ env.repository_path }}/DISTRIBUTE.py" "${{ inputs.platform }}"
       - name: upload
         uses: actions/upload-artifact@v6
         with:
