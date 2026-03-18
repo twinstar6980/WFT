@@ -18,7 +18,12 @@ defaults:
     working-directory: .
 jobs:
   test1:
+    runs-on: windows-2025-vs2026
     steps:
+      - name: download certificate
+        uses: ./.github/actions/download_certificate
+        with:
+          destination: ${{ matrix.repository_path }}/.local/distribution
       - name: setup msbuild
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_msbuild
@@ -71,29 +76,6 @@ jobs:
     steps:
       - name: chech out
         uses: actions/checkout@v4
-      - name: prepare MSBuild
-        uses: microsoft/setup-msbuild@v2
-        with:
-          vs-version: '[18.0,'
-          msbuild-architecture: x64
-      - name: prepare Xmake
-        uses: xmake-io/github-action-setup-xmake@v1
-        with:
-          xmake-version: latest
-      - name: prepare Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          flutter-version: 3.41.x
-      - name: restore certificate
-        uses: ./.github/actions/download_certificate
-        with:
-          destination: ${{ matrix.repository_path }}/.local/distribution
-      - name: check
-        shell: bash
-        run: |
-          flutter doctor -v
-          tsc --version
       - name: clone
         shell: bash
         run: |
