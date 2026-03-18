@@ -12,15 +12,12 @@ runs:
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/cmdline-tools/latest/bin"
-        Get-Content -Path $env:GITHUB_PATH
-        echo $env:PATH
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/build-tools/35.0.0"
     - name: check
       shell: pwsh
       run: |
         echo $env:ANDROID_HOME
-        echo $env:PATH
-        sdkmanager --version
-        sdkmanager --install "cmdline-tools;latest"
+        Get-Content -Path $env:GITHUB_PATH
         sdkmanager --version
         sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
         apksigner --version
