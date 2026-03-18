@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: chech out
         uses: actions/checkout@v4
-      - run: ls -r -a
+      - run: ls -R -a
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
