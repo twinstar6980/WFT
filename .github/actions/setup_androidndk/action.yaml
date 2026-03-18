@@ -13,11 +13,14 @@ runs:
       with:
         ndk-version: r${{ inputs.version }}
         add-to-path: false
-        link-to-sdk: true
+        link-to-sdk: false
     - name: check
       shell: pwsh
       run: |
         echo $env:ANDROID_NDK_HOME
-        echo $env:GITHUB_ENV
+        Get-Content -Path $env:GITHUB_ENV
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}"
+        echo $env:ANDROID_NDK_HOME
+        Get-ChildItem -Path "${{ steps.setup-ndk.outputs.ndk-path }}"
         echo $env:PATH
         apksigner --version
