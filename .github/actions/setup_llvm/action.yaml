@@ -15,6 +15,7 @@ runs:
       if: inputs.platform == 'windows.amd64'
       shell: pwsh
       run: |
+        New-Item -ItemType Directory -Force -Path "./.local/development"
         Invoke-WebRequest -Uri "https://github.com/mstorsjo/llvm-mingw/releases/download/${{ inputs.windows_version }}/llvm-mingw-${{ inputs.windows_version }}-ucrt-x86_64.zip" -OutFile "./.local/development/llvm-mingw.zip"
         Expand-Archive -Force -Path "./.local/development/llvm-mingw.zip" -DestinationPath "./.local/development/llvm-mingw"
         Remove-Item "./.local/development/llvm-mingw.zip"
