@@ -5,6 +5,9 @@ inputs:
   version:
     description: version
     required: true
+  windows_version:
+    description: windows version
+    required: true
 runs:
   using: composite
   steps:
@@ -12,7 +15,7 @@ runs:
       if: inputs.platform == 'windows.amd64'
       shell: pwsh
       run: |
-        Invoke-WebRequest -Uri "https://github.com/mstorsjo/llvm-mingw/releases/download/${{ inputs.version }}/llvm-mingw-${{ inputs.version }}-ucrt-x86_64.zip" -OutFile "./.local/development/llvm-mingw.zip"
+        Invoke-WebRequest -Uri "https://github.com/mstorsjo/llvm-mingw/releases/download/${{ inputs.windows_version }}/llvm-mingw-${{ inputs.windows_version }}-ucrt-x86_64.zip" -OutFile "./.local/development/llvm-mingw.zip"
         Expand-Archive -Force -Path "./.local/development/llvm-mingw.zip" -DestinationPath "./.local/development/llvm-mingw"
         Remove-Item "./.local/development/llvm-mingw.zip"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "./.local/development/llvm-mingw/bin"

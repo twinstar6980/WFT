@@ -33,6 +33,7 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '21'
+          windows_version: '20260311'
       # - name: setup android-sdk
       #   if: inputs.platform == 'windows.amd64'
       #   uses: ./.github/actions/setup_androidsdk
