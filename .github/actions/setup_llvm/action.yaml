@@ -34,18 +34,18 @@ runs:
         brew update
         brew install llvm@21
     - name: install
-      if: inputs.platform == 'android.amd64'
+      if: inputs.platform == 'android.arm64'
       shell: pwsh
       run: |
         echo "unneeded"
     - name: install
-      if: inputs.platform == 'iphone.amd64'
+      if: inputs.platform == 'iphone.arm64'
       shell: pwsh
       run: |
         brew update
         brew install llvm@21
     - name: check
-      if: inputs.platform != 'android.amd64'
+      if: inputs.platform != 'android.arm64'
       shell: pwsh
       run: |
         clang --version
