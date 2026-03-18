@@ -14,24 +14,20 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: xx
+    - name: install
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/cmdline-tools/latest/bin"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/build-tools/${{ inputs.build_version }}"
-    - name: check
+    - name: install
       shell: pwsh
       run: |
-        Write-Host $env:ANDROID_HOME
-        Write-Host $env:ANDROID_NDK_HOME
-        Get-Content -Path $env:GITHUB_PATH
         sdkmanager --install "platform-tools" "platforms;android-${{ inputs.version }}" "build-tools;${{ inputs.build_version }}" "ndk;${{ inputs.ndk_version }}"
-    - name: xx
+    - name: install
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_ENV -Value "ANDROID_NDK_HOME=$env:ANDROID_HOME/ndk/${{ inputs.ndk_version }}"
-        Write-Host $env:ANDROID_NDK_HOME
-    - name: xx
+    - name: check
       shell: pwsh
       run: |
         Write-Host $env:ANDROID_HOME

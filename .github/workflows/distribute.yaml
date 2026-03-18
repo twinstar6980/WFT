@@ -21,20 +21,26 @@ jobs:
     steps:
       - name: check out
         uses: actions/checkout@v4
-      - name: setup android-sdk
+      - name: setup typescript
         if: inputs.platform == 'windows.amd64'
-        uses: ./.github/actions/setup_androidsdk
+        uses: ./.github/actions/setup_typescript
         with:
           platform: ${{ inputs.platform }}
-          version: '36.1'
-          build_version: '36.1.0'
-          ndk_version: '29.0.14206865'
+          version: '5.9.3'
       - name: setup llvm
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_llvm
         with:
           platform: ${{ inputs.platform }}
           version: '21'
+      # - name: setup android-sdk
+      #   if: inputs.platform == 'windows.amd64'
+      #   uses: ./.github/actions/setup_androidsdk
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '36.1'
+      #     build_version: '36.1.0'
+      #     ndk_version: '29.0.14206865'
       # - name: setup windows-sdk
       #   if: inputs.platform == 'windows.amd64'
       #   uses: ./.github/actions/setup_windowssdk

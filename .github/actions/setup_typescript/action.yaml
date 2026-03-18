@@ -8,9 +8,13 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: install
+      shell: pwsh
+      run: |
+        npm list -g
+        npm install -g typescript@${{ inputs.build_version }}"
     - name: check
       shell: pwsh
       run: |
-        flutter doctor -v
+        npm list -g
         tsc --version
-        xmake --version
