@@ -8,13 +8,13 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: install
+    - id: install
       uses: nttld/setup-ndk@v1
       with:
         ndk-version: r${{ inputs.version }}
         add-to-path: false
         link-to-sdk: false
-    - name: check
+    - id: check
       shell: pwsh
       run: |
         echo $env:ANDROID_NDK_HOME
