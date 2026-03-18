@@ -8,19 +8,15 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: check
-      shell: pwsh
-      run: |
-        Get-ChildItem -Path "C:/Program Files (x86)/Windows Kits/10/bin"
     - name: install
       uses: GuillaumeFalourd/setup-windows10-sdk-action@v2.4
       with:
         sdk-version: ${{ inputs.version }}
-    - name: check
+    - name: install
       shell: pwsh
       run: |
-        Get-ChildItem -Path "C:/Program Files (x86)/Windows Kits/10/bin"
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "C:/Program Files (x86)/Windows Kits/10/bin10.0.${{ inputs.version }}.0/x64/"
+        echo "C:/Program Files (x86)/Windows Kits/10/bin/10.0.${{ inputs.version }}.0/x64"
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "C:/Program Files (x86)/Windows Kits/10/bin/10.0.${{ inputs.version }}.0/x64"
     - name: check
       shell: pwsh
       run: |
