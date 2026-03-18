@@ -14,5 +14,6 @@ runs:
         channel: stable
         flutter-version: ${{ inputs.version }}.x
     - name: check
+      shell: bash
       run: |
         flutter doctor -v

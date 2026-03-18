@@ -13,5 +13,6 @@ runs:
       with:
         xmake-version: ${{ inputs.version }}
     - name: check
+      shell: bash
       run: |
         xmake --version

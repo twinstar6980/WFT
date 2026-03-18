@@ -10,6 +10,7 @@ runs:
   steps:
     - name: install
       if: inputs.platform == 'windows.amd64'
+      shell: bash
       run: |
         LLVM_VERSION="${{ inputs.version }}"
         LLVM_URL="https://github.com/mstorsjo/llvm-mingw/releases/download/${LLVM_VERSION}/llvm-mingw-${LLVM_VERSION}-ucrt-x86_64.zip"
@@ -21,21 +22,25 @@ runs:
         echo "${LLVM_DIR}/bin" >> $GITHUB_PATH
     - name: install
       if: inputs.platform == 'linux.amd64'
+      shell: bash
       run: |
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
         sudo ./llvm.sh 21
     - name: install
       if: inputs.platform == 'macintosh.arm64'
+      shell: bash
       run: |
         brew update
         brew install llvm@21
     - name: install
       if: inputs.platform == 'android.amd64'
+      shell: bash
       run: |
         echo "unneeded"
     - name: install
       if: inputs.platform == 'iphone.amd64'
+      shell: bash
       run: |
         brew update
         brew install llvm@21

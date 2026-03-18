@@ -15,5 +15,6 @@ runs:
         vs-version: '[${{ inputs.version }},'
         msbuild-architecture: x64
     - name: check
+      shell: bash
       run: |
         MSBuild -version
