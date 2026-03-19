@@ -15,4 +15,4 @@ runs:
     - name: check
       shell: pwsh
       run: |
-        create-dmg --version
+        ldid --version
