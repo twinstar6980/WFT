@@ -16,3 +16,5 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       platform: ${{ inputs.platform }}
+    secrets: inherit
+
