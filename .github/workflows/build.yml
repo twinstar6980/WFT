@@ -71,9 +71,6 @@ jobs:
       - name: clone
         shell: pwsh
         run: |
-          echo "$env:GITHUB_PATH"
-          echo "$env:GITHUB_ENV"
-          echo "$env:ANDROID_NDK_HOME"
           git clone "${{ env.repository_url }}"
       - name: download certificate
         uses: ./.github/actions/download_certificate
