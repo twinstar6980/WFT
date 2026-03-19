@@ -33,35 +33,35 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '26100'
-      - name: setup android-sdk
-        if: inputs.platform == 'android.arm64'
-        uses: ./.github/actions/setup_androidsdk
-        with:
-          platform: ${{ inputs.platform }}
-          version: '36.1'
-          build_version: '36.1.0'
-          ndk_version: '29.0.14206865'
-      - name: setup llvm
-        uses: ./.github/actions/setup_llvm
-        with:
-          platform: ${{ inputs.platform }}
-          version: '21'
-          windows_version: '20251216'
-      - name: setup xmake
-        uses: ./.github/actions/setup_xmake
-        with:
-          platform: ${{ inputs.platform }}
-          version: '3.0.7'
-      - name: setup typescript
-        uses: ./.github/actions/setup_typescript
-        with:
-          platform: ${{ inputs.platform }}
-          version: '5.9.3'
-      - name: setup flutter
-        uses: ./.github/actions/setup_flutter
-        with:
-          platform: ${{ inputs.platform }}
-          version: '3.41.4'
+      # - name: setup android-sdk
+      #   if: inputs.platform == 'android.arm64'
+      #   uses: ./.github/actions/setup_androidsdk
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '36.1'
+      #     build_version: '36.1.0'
+      #     ndk_version: '29.0.14206865'
+      # - name: setup llvm
+      #   uses: ./.github/actions/setup_llvm
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '21'
+      #     windows_version: '20251216'
+      # - name: setup xmake
+      #   uses: ./.github/actions/setup_xmake
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '3.0.7'
+      # - name: setup typescript
+      #   uses: ./.github/actions/setup_typescript
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '5.9.3'
+      # - name: setup flutter
+      #   uses: ./.github/actions/setup_flutter
+      #   with:
+      #     platform: ${{ inputs.platform }}
+      #     version: '3.41.4'
       - name: setup msbuild
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_msbuild
@@ -71,15 +71,18 @@ jobs:
       - name: clone
         shell: pwsh
         run: |
-          echo ${{ github.workspace }}
-          echo ${{ env.GITHUB_PATH }}
-          echo ${{ env.GITHUB_ENV }}
-          echo ${{ env.ANDROID_NDK_HOME }}
+          echo "${{ env.GITHUB_PATH }}"
+          echo "${{ env.GITHUB_ENV }}"
+          echo "${{ env.ANDROID_NDK_HOME }}"
           git clone "${{ env.repository_url }}"
-      # - name: download certificate
-      #   uses: ./.github/actions/download_certificate
-      #   with:
-      #     destination: ${{ env.repository_path }}/.local/certificate
+      - name: download certificate
+        uses: ./.github/actions/download_certificate
+        with:
+          source_file_pfx: ${{ secrets.CERTIFICATE_FILE_PFX }}
+          source_password_pfx: ${{ secrets.CERTIFICATE_PASSWORD_PFX }}
+          source_file_jks: ${{ secrets.CERTIFICATE_FILE_JKS }}
+          source_password_jks: ${{ secrets.CERTIFICATE_PASSWORD_JKS }}
+          destination: ${{ env.repository_path }}/.local/certificate
       - name: build
         shell: pwsh
         run: |
