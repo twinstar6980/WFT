@@ -32,16 +32,16 @@ jobs:
       matrix:
         include:
           - name: windows.amd64
-            flag: platform_windows_amd64
+            enabled: ${{ inputs.platform_windows_amd64 }}
           - name: linux.amd64
-            flag: platform_linux_amd64
+            enabled: ${{ inputs.platform_linux_amd64 }}
           - name: macintosh.arm64
-            flag: platform_macintosh_arm64
+            enabled: ${{ inputs.platform_macintosh_arm64 }}
           - name: android.arm64
-            flag: platform_android_arm64
+            enabled: ${{ inputs.platform_android_arm64 }}
           - name: iphone.arm64
-            flag: platform_iphone_arm64
-    if: ${{ inputs[matrix.flag] }}
+            enabled: ${{ inputs.platform_iphone_arm64 }}
+    if: ${{ inputs.enabled }}
     uses: ./.github/workflows/build.yml
     with:
       platform: ${{ matrix.name }}
