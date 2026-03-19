@@ -1,20 +1,48 @@
 on:
   workflow_dispatch:
     inputs:
-      platform:
-        description: platform
+      platform_windows_amd64:
+        description: platform_windows_amd64
         required: true
-        type: choice
-        options:
-          - windows.amd64
-          - linux.amd64
-          - macintosh.arm64
-          - android.arm64
-          - iphone.arm64
+        type: boolean
+        default: false
+      platform_linux_amd64:
+        description: platform_linux_amd64
+        required: true
+        type: boolean
+        default: false
+      platform_macintosh_arm64:
+        description: platform_macintosh_arm64
+        required: true
+        type: boolean
+        default: false
+      platform_android_arm64:
+        description: platform_android_arm64
+        required: true
+        type: boolean
+        default: false
+      platform_iphone_arm64:
+        description: platform_iphone_arm64
+        required: true
+        type: boolean
+        default: false
 jobs:
   build:
+    strategy:
+      matrix:
+        include:
+          - name: windows.amd64
+            flag: platform_windows_amd64
+          - name: linux.amd64
+            flag: platform_linux_amd64
+          - name: macintosh.arm64
+            flag: platform_macintosh_arm64
+          - name: android.arm64
+            flag: platform_android_arm64
+          - name: iphone.arm64
+            flag: platform_iphone_arm64
+    if: ${{ inputs[matrix.flag] }}
     uses: ./.github/workflows/build.yml
     with:
-      platform: ${{ inputs.platform }}
+      platform: ${{ matrix.name }}
     secrets: inherit
-
