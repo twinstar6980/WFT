@@ -22,9 +22,9 @@ runs:
       run: |
         New-Item -ItemType Directory -Force -Path "${{ inputs.destination }}"
         Set-Content -AsByteStream -Path "${{ inputs.destination }}/file.pfx" -Value ([System.Convert]::FromBase64String("${{ inputs.source_file_pfx }}"))
-        Set-Content -AsByteStream -Path "${{ inputs.destination }}/password.pfx.txt" -Value ("${{ inputs.source_password_pfx }}")
+        Set-Content -Encoding utf8 -Path "${{ inputs.destination }}/password.pfx.txt" -Value ("${{ inputs.source_password_pfx }}")
         Set-Content -AsByteStream -Path "${{ inputs.destination }}/file.jks" -Value ([System.Convert]::FromBase64String("${{ inputs.source_file_jks }}"))
-        Set-Content -AsByteStream -Path "${{ inputs.destination }}/password.jks.txt" -Value ("${{ inputs.source_password_jks }}")
+        Set-Content -Encoding utf8 -Path "${{ inputs.destination }}/password.jks.txt" -Value ("${{ inputs.source_password_jks }}")
     - name: check
       shell: pwsh
       run: |
