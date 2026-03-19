@@ -31,11 +31,6 @@ runs:
         Remove-Item "${{ github.workspace }}/.local/development/llvm.sh"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/usr/lib/llvm-${{ inputs.version }}/bin"
     - name: install
-      if: inputs.platform == 'linux.amd64'
-      shell: pwsh
-      run: |
-        echo $env:PATH
-    - name: install
       if: inputs.platform == 'macintosh.arm64'
       shell: pwsh
       run: |

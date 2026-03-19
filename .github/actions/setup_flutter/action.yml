@@ -13,6 +13,11 @@ runs:
       with:
         channel: stable
         flutter-version: ${{ inputs.version }}
+    - name: install
+      if: inputs.platform == 'linux.amd64'
+      shell: pwsh
+      run: |
+        sudo apt install gtk+-3.0
     - name: check
       shell: pwsh
       run: |
