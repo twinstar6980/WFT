@@ -17,7 +17,7 @@ jobs:
       }')[inputs.platform] }}
     env:
       repository_name: KairosoftGameManager
-      repository_path: ${{ env.GITHUB_WORKSPACE }}/KairosoftGameManager
+      repository_path: ${{ github.workspace }}/KairosoftGameManager
       repository_url: https://github.com/twinstar6980/KairosoftGameManager
     steps:
       - name: check out
@@ -71,7 +71,7 @@ jobs:
       - name: clone
         shell: pwsh
         run: |
-          echo ${{ env.GITHUB_WORKSPACE }}
+          echo ${{ github.workspace }}
           echo ${{ env.GITHUB_PATH }}
           echo ${{ env.GITHUB_ENV }}
           echo ${{ env.ANDROID_NDK_HOME }}
