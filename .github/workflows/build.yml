@@ -81,6 +81,12 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '18.3.0'
+      - name: setup create-dmg
+        if: inputs.platform == 'macintosh.arm64'
+        uses: ./.github/actions/setup_createdmg
+        with:
+          platform: ${{ inputs.platform }}
+          version: 'latest'
       - name: clone
         shell: pwsh
         run: |

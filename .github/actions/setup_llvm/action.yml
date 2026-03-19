@@ -27,7 +27,7 @@ runs:
         New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/development"
         Invoke-WebRequest -Uri "https://apt.llvm.org/llvm.sh" -OutFile "${{ github.workspace }}/.local/development/llvm.sh"
         chmod +x "${{ github.workspace }}/.local/development/llvm.sh"
-        sudo "${{ github.workspace }}/.local/development/llvm.sh" "${{ inputs.version }}"
+        sudo "${{ github.workspace }}/.local/development/llvm.sh" "${{ inputs.version }}" all
         Remove-Item "${{ github.workspace }}/.local/development/llvm.sh"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/usr/lib/llvm-${{ inputs.version }}/bin"
     - name: install
@@ -39,7 +39,6 @@ runs:
       if: inputs.platform == 'macintosh.arm64'
       shell: pwsh
       run: |
-        brew update
         brew install llvm@${{ inputs.version }}
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: install
@@ -51,7 +50,6 @@ runs:
       if: inputs.platform == 'iphone.arm64'
       shell: pwsh
       run: |
-        brew update
         brew install llvm@${{ inputs.version }}
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: check
