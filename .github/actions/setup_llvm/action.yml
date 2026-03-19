@@ -24,16 +24,23 @@ runs:
       if: inputs.platform == 'linux.amd64'
       shell: pwsh
       run: |
-        wget https://apt.llvm.org/llvm.sh
-        chmod +x llvm.sh
-        sudo ./llvm.sh 21
+        Invoke-WebRequest -Uri "https://apt.llvm.org/llvm.sh" -OutFile "${{ github.workspace }}/.local/development/llvm.sh"
+        chmod +x "${{ github.workspace }}/.local/development/llvm.sh"
+        sudo "${{ github.workspace }}/.local/development/llvm.sh" "${{ inputs.version }}"
+        Remove-Item "${{ github.workspace }}/.local/development/llvm.sh"
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/usr/lib/llvm-${{ inputs.version }}/bin"
+    - name: install
+      if: inputs.platform == 'linux.amd64'
+      shell: pwsh
+      run: |
+        echo $env:PATH
     - name: install
       if: inputs.platform == 'macintosh.arm64'
       shell: pwsh
       run: |
         brew update
-        brew install llvm@21
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@21/bin"
+        brew install llvm@${{ inputs.version }}
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: install
       if: inputs.platform == 'android.arm64'
       shell: pwsh
@@ -44,8 +51,8 @@ runs:
       shell: pwsh
       run: |
         brew update
-        brew install llvm@21
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@21/bin"
+        brew install llvm@${{ inputs.version }}
+        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: check
       if: inputs.platform != 'android.arm64'
       shell: pwsh
