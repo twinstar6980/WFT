@@ -29,3 +29,4 @@ runs:
       shell: pwsh
       run: |
         Get-ChildItem -Recurse -Path "${{ inputs.destination }}"
+        Get-ChildItem -Path "${{ inputs.destination }}" | Select-Object Name, @{Name="Size(MB)"; Expression={$_.Length / 1mb}}
