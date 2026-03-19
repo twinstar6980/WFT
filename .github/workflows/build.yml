@@ -108,4 +108,4 @@ jobs:
         with:
           name: ${{ inputs.platform }}.zip
           path: |
-            ${{ env.repository_path }}/.local/distribution
+            ${{ env.repository_path }}/.local/distribution/${{ inputs.platform }}

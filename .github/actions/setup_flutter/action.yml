@@ -17,7 +17,7 @@ runs:
       if: inputs.platform == 'linux.amd64'
       shell: pwsh
       run: |
-        sudo apt install gtk+-3.0
+        sudo apt install libgtk-3-dev
     - name: check
       shell: pwsh
       run: |
