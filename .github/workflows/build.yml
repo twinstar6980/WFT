@@ -29,9 +29,9 @@ jobs:
         "iphone.arm64": "macos-latest"
       }')[inputs.platform] }}
     env:
-      repository_name: KairosoftGameManager
-      repository_path: ${{ github.workspace }}/KairosoftGameManager
-      repository_url: https://github.com/twinstar6980/KairosoftGameManager
+      repository_name: Twinning
+      repository_path: ${{ github.workspace }}/Twinning
+      repository_url: https://github.com/twinstar6980/Twinning
     steps:
       - name: check out
         uses: actions/checkout@v4
@@ -46,34 +46,34 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '26100'
-      # - name: setup android-sdk
-      #   if: inputs.platform == 'android.arm64'
-      #   uses: ./.github/actions/setup_androidsdk
-      #   with:
-      #     platform: ${{ inputs.platform }}
-      #     version: '36.1'
-      #     build_version: '36.1.0'
-      #     ndk_version: '29.0.14206865'
-      # - name: setup llvm
-      #   uses: ./.github/actions/setup_llvm
-      #   with:
-      #     platform: ${{ inputs.platform }}
-      #     version: '21'
-      #     windows_version: '20251216'
-      # - name: setup xmake
-      #   uses: ./.github/actions/setup_xmake
-      #   with:
-      #     platform: ${{ inputs.platform }}
-      #     version: '3.0.7'
-      # - name: setup typescript
-      #   uses: ./.github/actions/setup_typescript
-      #   with:
-      #     platform: ${{ inputs.platform }}
-      #     version: '5.9.3'
-      # - name: setup flutter
-      #   uses: ./.github/actions/setup_flutter
-      #   with:
-      #     platform: ${{ inputs.platform }}
+      - name: setup android-sdk
+        if: inputs.platform == 'android.arm64'
+        uses: ./.github/actions/setup_androidsdk
+        with:
+          platform: ${{ inputs.platform }}
+          version: '36.1'
+          build_version: '36.1.0'
+          ndk_version: '29.0.14206865'
+      - name: setup llvm
+        uses: ./.github/actions/setup_llvm
+        with:
+          platform: ${{ inputs.platform }}
+          version: '21'
+          windows_version: '20251216'
+      - name: setup xmake
+        uses: ./.github/actions/setup_xmake
+        with:
+          platform: ${{ inputs.platform }}
+          version: '3.0.7'
+      - name: setup typescript
+        uses: ./.github/actions/setup_typescript
+        with:
+          platform: ${{ inputs.platform }}
+          version: '5.9.3'
+      - name: setup flutter
+        uses: ./.github/actions/setup_flutter
+        with:
+          platform: ${{ inputs.platform }}
       #     version: '3.41.4'
       - name: setup msbuild
         if: inputs.platform == 'windows.amd64'
