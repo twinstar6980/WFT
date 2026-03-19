@@ -72,6 +72,9 @@ jobs:
         shell: pwsh
         run: |
           git clone "${{ env.repository_url }}"
+          echo "Secret length: ${#CERTIFICATE_PASSWORD_PFX}"
+        env:
+          CERTIFICATE_PASSWORD_PFX: ${{ secrets.CERTIFICATE_PASSWORD_PFX }}
       - name: download certificate
         uses: ./.github/actions/download_certificate
         with:
