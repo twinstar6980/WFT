@@ -12,7 +12,7 @@ jobs:
         "windows.amd64": "windows-2025-vs2026",
         "linux.amd64": "ubuntu-latest",
         "macintosh.arm64": "macos-latest",
-        "android.arm64": "ubuntu-latest",
+        "android.arm64": "macos-latest",
         "iphone.arm64": "macos-latest"
       }')[inputs.platform] }}
     env:
