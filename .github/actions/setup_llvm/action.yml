@@ -6,7 +6,7 @@ inputs:
     description: version
     required: true
   windows_version:
-    description: windows version
+    description: windows_version
     required: true
 runs:
   using: composite

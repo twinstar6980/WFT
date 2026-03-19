@@ -6,10 +6,10 @@ inputs:
     description: version
     required: true
   build_version:
-    description: build version
+    description: build_version
     required: true
   ndk_version:
-    description: ndk version
+    description: ndk_version
     required: true
 runs:
   using: composite
