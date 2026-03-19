@@ -6,7 +6,7 @@ on:
         required: true
         type: string
 jobs:
-  distribute:
+  build:
     runs-on: |
       ${{ fromJSON('{
         "windows.amd64": "windows-2025-vs2026",
@@ -80,7 +80,7 @@ jobs:
       #   uses: ./.github/actions/download_certificate
       #   with:
       #     destination: ${{ env.repository_path }}/.local/certificate
-      - name: distribute
+      - name: build
         shell: pwsh
         run: |
           python3 "${{ env.repository_path }}/DISTRIBUTE.py" "${{ inputs.platform }}"

@@ -13,6 +13,6 @@ on:
           - iphone.arm64
 jobs:
   build:
-    uses: ./.github/workflows/distribute.yaml
+    uses: ./.github/workflows/build.yaml
     with:
       platform: ${{ inputs.platform }}
