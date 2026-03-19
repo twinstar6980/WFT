@@ -72,21 +72,21 @@ jobs:
         with:
           platform: ${{ inputs.platform }}
           version: '18.3.0'
-      # - name: clone
-      #   shell: pwsh
-      #   run: |
-      #     git clone "${{ env.repository_url }}"
-      # # - name: download certificate
-      # #   uses: ./.github/actions/download_certificate
-      # #   with:
-      # #     destination: ${{ env.repository_path }}/.local/certificate
-      # - name: distribute
-      #   shell: pwsh
-      #   run: |
-      #     python3 "${{ env.repository_path }}/DISTRIBUTE.py" "${{ inputs.platform }}"
-      # - name: upload
-      #   uses: actions/upload-artifact@v6
+      - name: clone
+        shell: pwsh
+        run: |
+          git clone "${{ env.repository_url }}"
+      # - name: download certificate
+      #   uses: ./.github/actions/download_certificate
       #   with:
-      #     name: ${{ inputs.platform }}.zip
-      #     path: |
-      #       ${{ env.repository_path }}/.local/distribution
+      #     destination: ${{ env.repository_path }}/.local/certificate
+      - name: distribute
+        shell: pwsh
+        run: |
+          python3 "${{ env.repository_path }}/DISTRIBUTE.py" "${{ inputs.platform }}"
+      - name: upload
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ inputs.platform }}.zip
+          path: |
+            ${{ env.repository_path }}/.local/distribution
