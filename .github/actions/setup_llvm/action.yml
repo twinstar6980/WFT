@@ -37,18 +37,12 @@ runs:
         brew install llvm@${{ inputs.version }}
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: install
-      if: inputs.platform == 'android.arm64'
-      shell: pwsh
-      run: |
-        echo "unneeded"
-    - name: install
       if: inputs.platform == 'iphone.arm64'
       shell: pwsh
       run: |
         brew install llvm@${{ inputs.version }}
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: check
-      if: inputs.platform != 'android.arm64'
       shell: pwsh
       run: |
         clang --version

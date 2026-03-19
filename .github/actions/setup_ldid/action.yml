@@ -1,0 +1,18 @@
+inputs:
+  platform:
+    description: platform
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: install
+      shell: pwsh
+      run: |
+        brew install ldid
+    - name: check
+      shell: pwsh
+      run: |
+        create-dmg --version
