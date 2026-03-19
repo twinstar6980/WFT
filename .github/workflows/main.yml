@@ -27,22 +27,33 @@ on:
         type: boolean
         default: false
 jobs:
-  build:
-    strategy:
-      matrix:
-        include:
-          - enabled: ${{ inputs.build_windows_amd64 }}
-            platform: windows.amd64
-          - enabled: ${{ inputs.build_linux_amd64 }}
-            platform: linux.amd64
-          - enabled: ${{ inputs.build_macintosh_arm64 }}
-            platform: macintosh.arm64
-          - enabled: ${{ inputs.build_android_arm64 }}
-            platform: android.arm64
-          - enabled: ${{ inputs.build_iphone_arm64 }}
-            platform: iphone.arm64
-    if: ${{ matrix.enabled }}
+  build_windows_amd64:
+    if: inputs.build_windows_amd64
     uses: ./.github/workflows/build.yml
     with:
-      platform: ${{ matrix.platform }}
+      platform: windows.amd64
+    secrets: inherit
+  build_linux_amd64:
+    if: inputs.build_linux_amd64
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: linux.amd64
+    secrets: inherit
+  build_macintosh_arm64:
+    if: inputs.build_macintosh_arm64
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: macintosh.arm64
+    secrets: inherit
+  build_android_arm64:
+    if: inputs.build_android_arm64
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: android.arm64
+    secrets: inherit
+  build_iphone_arm64:
+    if: inputs.build_iphone_arm64
+    uses: ./.github/workflows/build.yml
+    with:
+      platform: iphone.arm64
     secrets: inherit
