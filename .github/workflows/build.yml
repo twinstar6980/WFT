@@ -32,10 +32,10 @@ jobs:
     runs-on: |-
       ${{ fromJSON('{
         "windows.amd64": "windows-2025-vs2026",
-        "linux.amd64": "ubuntu-latest",
-        "macintosh.arm64": "macos-latest",
+        "linux.amd64": "ubuntu-24.04",
+        "macintosh.arm64": "macos-26",
         "android.arm64": "windows-2025-vs2026",
-        "iphone.arm64": "macos-latest"
+        "iphone.arm64": "macos-26"
       }')[inputs.platform] }}
     env:
       repository_name: Twinning
