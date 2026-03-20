@@ -29,7 +29,7 @@ env:
     }')[inputs.platform] }}
 jobs:
   build:
-    runs-on: |
+    runs-on: |-
       ${{ fromJSON('{
         "windows.amd64": "windows-2025-vs2026",
         "linux.amd64": "ubuntu-latest",
