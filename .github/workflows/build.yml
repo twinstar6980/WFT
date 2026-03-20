@@ -112,7 +112,7 @@ jobs:
         run: |
           git clone "${{ env.repository_url }}"
       - name: download certificate
-        if: secrets.certificate_file_pfx != '' && secrets.certificate_password_pfx != '' && secrets.certificate_file_jks != '' && secrets.certificate_password_jks != ''
+        if: ${{ secrets.certificate_file_pfx != '' && secrets.certificate_password_pfx != '' && secrets.certificate_file_jks != '' && secrets.certificate_password_jks != '' }}
         uses: ./.github/actions/download_certificate
         with:
           source_file_pfx: ${{ secrets.certificate_file_pfx }}
