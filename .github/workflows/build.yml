@@ -27,17 +27,16 @@ env:
       "android.arm64": "windows",
       "iphone.arm64": "macintosh"
     }')[inputs.platform] }}
-  host_on: |
-    ${{ fromJSON('{
-      "windows.amd64": "windows-2025-vs2026",
-      "linux.amd64": "ubuntu-latest",
-      "macintosh.arm64": "macos-latest",
-      "android.arm64": "windows-2025-vs2026",
-      "iphone.arm64": "macos-latest"
-    }')[inputs.platform] }}
 jobs:
   build:
-    runs-on: ${{ env.host_on }}
+    runs-on: |
+      ${{ fromJSON('{
+        "windows.amd64": "windows-2025-vs2026",
+        "linux.amd64": "ubuntu-latest",
+        "macintosh.arm64": "macos-latest",
+        "android.arm64": "windows-2025-vs2026",
+        "iphone.arm64": "macos-latest"
+      }')[inputs.platform] }}
     env:
       repository_name: Twinning
       repository_path: ${{ github.workspace }}/Twinning
