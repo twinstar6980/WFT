@@ -95,6 +95,12 @@ jobs:
         with:
           host: ${{ env.host }}
           version: '18.3.0'
+      - name: setup xcode
+        if: ${{ inputs.platform == 'macintosh.arm64' || inputs.platform == 'iphone.arm64' }}
+        uses: ./.github/actions/setup_xcode
+        with:
+          host: ${{ env.host }}
+          version: '26.3'
       - name: setup create-dmg
         if: ${{ inputs.platform == 'macintosh.arm64' }}
         uses: ./.github/actions/setup_createdmg

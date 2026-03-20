@@ -1,0 +1,28 @@
+inputs:
+  host:
+    description: host
+    required: true
+  version:
+    description: version
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: check
+      if: ${{ inputs.host == 'macintosh' }}
+      shell: pwsh
+      run: |
+        xcodebuild -version
+        xcodebuild -showsdks
+        xcrun --show-sdk-version
+    - name: install
+      if: ${{ inputs.host == 'macintosh' }}
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ inputs.version }}
+    - name: check
+      if: ${{ inputs.host == 'macintosh' }}
+      shell: pwsh
+      run: |
+        xcodebuild -version
+        xcodebuild -showsdks
