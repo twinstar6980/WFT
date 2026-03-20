@@ -8,12 +8,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: check
-      if: ${{ inputs.host == 'macintosh' }}
-      shell: pwsh
-      run: |
-        xcodebuild -version
-        xcodebuild -showsdks
     - name: install
       if: ${{ inputs.host == 'macintosh' }}
       uses: maxim-lobanov/setup-xcode@v1
