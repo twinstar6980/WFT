@@ -14,7 +14,6 @@ runs:
       run: |
         xcodebuild -version
         xcodebuild -showsdks
-        xcrun --show-sdk-version
     - name: install
       if: ${{ inputs.host == 'macintosh' }}
       uses: maxim-lobanov/setup-xcode@v1
