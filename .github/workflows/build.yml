@@ -18,16 +18,26 @@ on:
       certificate_password_jks:
         description: certificate_password_jks
         required: false
+env:
+  host: |
+    ${{ fromJSON('{
+      "windows.amd64": "windows",
+      "linux.amd64": "linux",
+      "macintosh.arm64": "macintosh",
+      "android.arm64": "windows",
+      "iphone.arm64": "macintosh"
+    }')[inputs.platform] }}
+  host_on: |
+    ${{ fromJSON('{
+      "windows.amd64": "windows-2025-vs2026",
+      "linux.amd64": "ubuntu-latest",
+      "macintosh.arm64": "macos-latest",
+      "android.arm64": "windows-2025-vs2026",
+      "iphone.arm64": "macos-latest"
+    }')[inputs.platform] }}
 jobs:
   build:
-    runs-on: |
-      ${{ fromJSON('{
-        "windows.amd64": "windows-2025-vs2026",
-        "linux.amd64": "ubuntu-latest",
-        "macintosh.arm64": "macos-latest",
-        "android.arm64": "macos-latest",
-        "iphone.arm64": "macos-latest"
-      }')[inputs.platform] }}
+    runs-on: ${{ env.host_on }}
     env:
       repository_name: Twinning
       repository_path: ${{ github.workspace }}/Twinning
@@ -36,21 +46,22 @@ jobs:
       - name: check out
         uses: actions/checkout@v4
       - name: setup python
+        if: inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64'
         uses: ./.github/actions/setup_python
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '3.14.3'
       - name: setup windows-sdk
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_windowssdk
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '26100'
       - name: setup android-sdk
         if: inputs.platform == 'android.arm64'
         uses: ./.github/actions/setup_androidsdk
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '36.1'
           build_version: '36.1.0'
           ndk_version: '29.0.14206865'
@@ -58,47 +69,51 @@ jobs:
         if: inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'iphone.arm64'
         uses: ./.github/actions/setup_llvm
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '21'
           windows_version: '20251216'
       - name: setup xmake
+        if: inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64'
         uses: ./.github/actions/setup_xmake
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '3.0.7'
       - name: setup typescript
+        if: inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64'
         uses: ./.github/actions/setup_typescript
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '5.9.3'
       - name: setup flutter
+        if: inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64'
         uses: ./.github/actions/setup_flutter
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '3.41.4'
       - name: setup msbuild
         if: inputs.platform == 'windows.amd64'
         uses: ./.github/actions/setup_msbuild
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: '18.3.0'
       - name: setup create-dmg
         if: inputs.platform == 'macintosh.arm64'
         uses: ./.github/actions/setup_createdmg
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: 'latest'
       - name: setup ldid
         if: inputs.platform == 'iphone.arm64'
         uses: ./.github/actions/setup_ldid
         with:
-          platform: ${{ inputs.platform }}
+          host: ${{ env.host }}
           version: 'latest'
       - name: clone
         shell: pwsh
         run: |
           git clone "${{ env.repository_url }}"
       - name: download certificate
+        if: secrets.certificate_file_pfx != '' && secrets.certificate_password_pfx != '' && secrets.certificate_file_jks != '' && secrets.certificate_password_jks != ''
         uses: ./.github/actions/download_certificate
         with:
           source_file_pfx: ${{ secrets.certificate_file_pfx }}

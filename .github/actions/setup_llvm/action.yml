@@ -1,6 +1,6 @@
 inputs:
-  platform:
-    description: platform
+  host:
+    description: host
     required: true
   version:
     description: version
@@ -12,7 +12,7 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.platform == 'windows.amd64'
+      if: inputs.host == 'windows'
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/development"
@@ -21,7 +21,7 @@ runs:
         Remove-Item "${{ github.workspace }}/.local/development/llvm-mingw.zip"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "${{ github.workspace }}/.local/development/llvm-mingw-${{ inputs.windows_version }}-ucrt-x86_64/bin"
     - name: install
-      if: inputs.platform == 'linux.amd64'
+      if: inputs.host == 'linux'
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/development"
@@ -31,18 +31,13 @@ runs:
         Remove-Item "${{ github.workspace }}/.local/development/llvm.sh"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/usr/lib/llvm-${{ inputs.version }}/bin"
     - name: install
-      if: inputs.platform == 'macintosh.arm64'
-      shell: pwsh
-      run: |
-        brew install llvm@${{ inputs.version }}
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
-    - name: install
-      if: inputs.platform == 'iphone.arm64'
+      if: inputs.host == 'macintosh'
       shell: pwsh
       run: |
         brew install llvm@${{ inputs.version }}
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: check
+      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
       shell: pwsh
       run: |
         clang --version

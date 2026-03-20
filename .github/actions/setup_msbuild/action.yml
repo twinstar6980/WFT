@@ -1,6 +1,6 @@
 inputs:
-  platform:
-    description: platform
+  host:
+    description: host
     required: true
   version:
     description: version
@@ -9,12 +9,13 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.platform == 'windows.amd64'
+      if: inputs.host == 'windows'
       uses: microsoft/setup-msbuild@v2
       with:
         vs-version: '[${{ inputs.version }}, )'
         msbuild-architecture: x64
     - name: check
+      if: inputs.host == 'windows'
       shell: pwsh
       run: |
         MSBuild -version

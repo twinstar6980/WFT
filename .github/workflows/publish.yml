@@ -2,18 +2,5 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - platform: windows.amd64
-            github_os: windows-latest
-          - platform: linux.amd64
-            github_os: ubuntu-latest
-          - platform: macintosh.arm64
-            github_os: macos-latest
-          - platform: android.arm64
-            github_os: ubuntu-latest
-          - platform: iphone.arm64
-            github_os: macos-latest
-    runs-on: ${{ matrix.github_os }}
+    runs-on: windows-latest
     steps:
