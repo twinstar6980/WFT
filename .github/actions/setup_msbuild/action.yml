@@ -9,13 +9,13 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.host == 'windows'
+      if: ${{ inputs.host == 'windows' }}
       uses: microsoft/setup-msbuild@v2
       with:
         vs-version: '[${{ inputs.version }}, )'
         msbuild-architecture: x64
     - name: check
-      if: inputs.host == 'windows'
+      if: ${{ inputs.host == 'windows' }}
       shell: pwsh
       run: |
         MSBuild -version

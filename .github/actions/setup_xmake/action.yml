@@ -9,12 +9,12 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       uses: xmake-io/github-action-setup-xmake@v1
       with:
         xmake-version: ${{ inputs.version }}
     - name: check
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         xmake --version

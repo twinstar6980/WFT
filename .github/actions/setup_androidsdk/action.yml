@@ -15,23 +15,23 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/cmdline-tools/latest/bin"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$env:ANDROID_HOME/build-tools/${{ inputs.build_version }}"
     - name: install
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         sdkmanager --install "platform-tools" "platforms;android-${{ inputs.version }}" "build-tools;${{ inputs.build_version }}" "ndk;${{ inputs.ndk_version }}"
     - name: install
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         Add-Content -Encoding utf8 -Path $env:GITHUB_ENV -Value "ANDROID_NDK_HOME=$env:ANDROID_HOME/ndk/${{ inputs.ndk_version }}"
     - name: check
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         Write-Host $env:ANDROID_HOME

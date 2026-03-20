@@ -9,12 +9,12 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         brew install create-dmg
     - name: check
-      if: inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         create-dmg --version

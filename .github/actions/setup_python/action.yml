@@ -9,12 +9,12 @@ runs:
   using: composite
   steps:
     - name: install
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       uses: actions/setup-python@v6
       with:
         python-version: ${{ inputs.version }}
     - name: check
-      if: inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh'
+      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
         python3 --version
