@@ -118,7 +118,7 @@ jobs:
         run: |
           git clone "${{ env.repository_url }}"
       - name: download certificate
-        if: ${{ secrets.certificate_file_pfx != '' }}
+        if: ${{ env.enable_certificate }}
         uses: ./.github/actions/download_certificate
         with:
           source_file_pfx: ${{ secrets.certificate_file_pfx }}
@@ -126,6 +126,8 @@ jobs:
           source_file_jks: ${{ secrets.certificate_file_jks }}
           source_password_jks: ${{ secrets.certificate_password_jks }}
           destination: ${{ env.repository_path }}/.local/certificate
+        env:
+          enable_certificate: ${{ secrets.certificate_file_pfx != '' && secrets.certificate_password_pfx != '' && secrets.certificate_file_jks != '' && secrets.certificate_password_jks != '' }}
       - name: build
         shell: pwsh
         run: |
