@@ -21,11 +21,11 @@ runs:
       if: ${{ inputs.host == 'linux' }}
       shell: pwsh
       run: |
-        New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/development"
-        Invoke-WebRequest -Uri "https://apt.llvm.org/llvm.sh" -OutFile "${{ github.workspace }}/.local/development/llvm.sh"
-        chmod +x "${{ github.workspace }}/.local/development/llvm.sh"
-        sudo "${{ github.workspace }}/.local/development/llvm.sh" "${{ inputs.version }}" all
-        Remove-Item "${{ github.workspace }}/.local/development/llvm.sh"
+        New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/temporary"
+        Invoke-WebRequest -Uri "https://apt.llvm.org/llvm.sh" -OutFile "${{ github.workspace }}/.local/temporary/llvm.sh"
+        chmod +x "${{ github.workspace }}/.local/temporary/llvm.sh"
+        sudo "${{ github.workspace }}/.local/temporary/llvm.sh" "${{ inputs.version }}" all
+        Remove-Item "${{ github.workspace }}/.local/temporary/llvm.sh"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/usr/lib/llvm-${{ inputs.version }}/bin"
     - name: install
       if: ${{ inputs.host == 'macintosh' }}
