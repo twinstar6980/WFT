@@ -5,15 +5,15 @@ on:
       repository_url:
         required: true
         type: string
-      target_platform:
-        required: true
-        type: string
       enable_certificate:
         required: true
         type: boolean
       enable_webdav:
         required: true
         type: boolean
+      target_platform:
+        required: true
+        type: string
     secrets:
       certificate_file_pfx:
         required: false

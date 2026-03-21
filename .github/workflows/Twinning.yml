@@ -6,6 +6,14 @@ on:
         required: true
         type: string
         default: 'https://github.com/twinstar6980/Twinning'
+      enable_certificate:
+        required: true
+        type: boolean
+        default: false
+      enable_webdav:
+        required: true
+        type: boolean
+        default: false
       distribute_windows_amd64:
         required: true
         type: boolean
@@ -26,57 +34,49 @@ on:
         required: true
         type: boolean
         default: false
-      enable_certificate:
-        required: true
-        type: boolean
-        default: false
-      enable_webdav:
-        required: true
-        type: boolean
-        default: false
 jobs:
   distribute_windows_amd64:
     if: ${{ inputs.distribute_windows_amd64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
       repository_url: ${{ inputs.repository_url }}
-      target_platform: windows.amd64
       enable_certificate: ${{ inputs.enable_certificate }}
       enable_webdav: ${{ inputs.enable_webdav }}
+      target_platform: windows.amd64
     secrets: inherit
   distribute_linux_amd64:
     if: ${{ inputs.distribute_linux_amd64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
       repository_url: ${{ inputs.repository_url }}
-      target_platform: linux.amd64
       enable_certificate: ${{ inputs.enable_certificate }}
       enable_webdav: ${{ inputs.enable_webdav }}
+      target_platform: linux.amd64
     secrets: inherit
   distribute_macintosh_arm64:
     if: ${{ inputs.distribute_macintosh_arm64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
       repository_url: ${{ inputs.repository_url }}
-      target_platform: macintosh.arm64
       enable_certificate: ${{ inputs.enable_certificate }}
       enable_webdav: ${{ inputs.enable_webdav }}
+      target_platform: macintosh.arm64
     secrets: inherit
   distribute_android_arm64:
     if: ${{ inputs.distribute_android_arm64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
       repository_url: ${{ inputs.repository_url }}
-      target_platform: android.arm64
       enable_certificate: ${{ inputs.enable_certificate }}
       enable_webdav: ${{ inputs.enable_webdav }}
+      target_platform: android.arm64
     secrets: inherit
   distribute_iphone_arm64:
     if: ${{ inputs.distribute_iphone_arm64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
       repository_url: ${{ inputs.repository_url }}
-      target_platform: iphone.arm64
       enable_certificate: ${{ inputs.enable_certificate }}
       enable_webdav: ${{ inputs.enable_webdav }}
+      target_platform: iphone.arm64
     secrets: inherit
