@@ -20,13 +20,13 @@ runs:
   using: composite
   steps:
     - name: upload
-      if: ${{ inputs.enss }}
+      if: ${{ fromJSON(inputs.enss) }}
       uses: actions/upload-artifact@v6
       with:
         name: ${{ inputs.action_destination }}
         path: ${{ inputs.path }}
     - name: upload
-      if: ${{ inputs.enss }}
+      if: ${{ fromJSON(inputs.enss) }}
       uses: bxb100/action-upload@v0
       with:
         provider: webdav
