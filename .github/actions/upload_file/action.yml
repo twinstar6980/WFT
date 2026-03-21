@@ -1,32 +1,29 @@
 inputs:
-  enss:
-    required: true
-    type: boolean
   path:
     required: true
   target:
     required: true
   action_destination:
-    required: false
+    required: true
   webdav_endpoint:
-    required: false
+    required: true
   webdav_username:
-    required: false
+    required: true
   webdav_password:
-    required: false
+    required: true
   webdav_destination:
-    required: false
+    required: true
 runs:
   using: composite
   steps:
     - name: upload
-      if: ${{ fromJSON(inputs.enss) }}
+      if: ${{ inputs.target == 'action' }}
       uses: actions/upload-artifact@v6
       with:
         name: ${{ inputs.action_destination }}
         path: ${{ inputs.path }}
     - name: upload
-      if: ${{ fromJSON(inputs.enss) }}
+      if: ${{ inputs.target == 'webdav' }}
       uses: bxb100/action-upload@v0
       with:
         provider: webdav
