@@ -39,25 +39,12 @@ jobs:
       }')[inputs.platform] }}
     env:
       repository_name: Twinning
-      repository_path: ${{ github.workspace }}/${{ env.repository_name }}
+      repository_path: ${{ github.workspace }}/Twinning
       repository_url: https://github.com/twinstar6980/Twinning
       certificate_available: ${{ secrets.certificate_file_pfx != '' && secrets.certificate_password_pfx != '' && secrets.certificate_file_jks != '' && secrets.certificate_password_jks != '' }}
     steps:
       - name: check out
         uses: actions/checkout@v4
-      - name: clone
-        shell: pwsh
-        run: |
-          git clone "${{ env.repository_url }}"
-      - name: download certificate
-        if: ${{ env.certificate_available }}
-        uses: ./.github/actions/download_certificate
-        with:
-          source_file_pfx: ${{ secrets.certificate_file_pfx }}
-          source_password_pfx: ${{ secrets.certificate_password_pfx }}
-          source_file_jks: ${{ secrets.certificate_file_jks }}
-          source_password_jks: ${{ secrets.certificate_password_jks }}
-          destination: ${{ env.repository_path }}/.local/certificate
       - name: setup python
         if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_python
@@ -127,6 +114,19 @@ jobs:
         with:
           host: ${{ env.host }}
           version: 'latest'
+      - name: clone
+        shell: pwsh
+        run: |
+          git clone "${{ env.repository_url }}"
+      - name: download certificate
+        if: ${{ env.certificate_available }}
+        uses: ./.github/actions/download_certificate
+        with:
+          source_file_pfx: ${{ secrets.certificate_file_pfx }}
+          source_password_pfx: ${{ secrets.certificate_password_pfx }}
+          source_file_jks: ${{ secrets.certificate_file_jks }}
+          source_password_jks: ${{ secrets.certificate_password_jks }}
+          destination: ${{ env.repository_path }}/.local/certificate
       - name: build
         shell: pwsh
         run: |
