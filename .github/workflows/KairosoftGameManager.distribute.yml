@@ -49,6 +49,7 @@ jobs:
       }')[inputs.platform] }}
     steps:
       - name: check out
+        if: ${{ true }}
         uses: actions/checkout@v4
       - name: setup python
         if: ${{ inputs.platform == 'windows.amd64' }}
@@ -69,6 +70,7 @@ jobs:
           host: ${{ env.host }}
           version: '18.3.0'
       - name: clone repository
+        if: ${{ true }}
         shell: pwsh
         run: |
           git clone "${{ inputs.repository }}" "${{ github.workspace }}/repository"
@@ -82,6 +84,7 @@ jobs:
           source_password_jks: ${{ secrets.certificate_password_jks }}
           destination: ${{ github.workspace }}/repository/.local/certificate
       - name: build repository
+        if: ${{ true }}
         shell: pwsh
         run: |
           python3 "${{ github.workspace }}/repository/BUILD.py" "${{ inputs.platform }}"
@@ -96,6 +99,7 @@ jobs:
           webdav_password: ${{ secrets.webdav_password }}
           webdav_destination: '/ghatest'
       - name: upload to action
+        if: ${{ true }}
         uses: ./.github/actions/upload_file
         with:
           path: ${{ github.workspace }}/repository/.local/distribution/*
