@@ -1,9 +1,9 @@
+name: setup_windowssdk xx
+description: setup_windowssdk yy
 inputs:
   host:
-    description: host
     required: true
   version:
-    description: version
     required: true
 runs:
   using: composite
