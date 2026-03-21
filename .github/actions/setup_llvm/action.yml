@@ -36,5 +36,6 @@ runs:
       if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       shell: pwsh
       run: |
+        echo $env:PATH
         clang --version
         llvm-strip --version
