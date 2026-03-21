@@ -2,21 +2,16 @@ on:
   workflow_call:
     inputs:
       platform:
-        description: platform
         required: true
         type: string
     secrets:
       certificate_file_pfx:
-        description: certificate_file_pfx
         required: false
       certificate_password_pfx:
-        description: certificate_password_pfx
         required: false
       certificate_file_jks:
-        description: certificate_file_jks
         required: false
       certificate_password_jks:
-        description: certificate_password_jks
         required: false
 env:
   host: |-
