@@ -8,7 +8,7 @@ on:
 jobs:
   build_windows_amd64:
     if: ${{ inputs.build_windows_amd64 }}
-    uses: ./.github/workflows/KairosoftGameManager/build.yml
+    uses: ./.github/workflows/KairosoftGameManager.build.yml
     with:
       platform: windows.amd64
     secrets: inherit

@@ -24,31 +24,31 @@ on:
 jobs:
   build_windows_amd64:
     if: ${{ inputs.build_windows_amd64 }}
-    uses: ./.github/workflows/Twinning/build.yml
+    uses: ./.github/workflows/Twinning.build.yml
     with:
       platform: windows.amd64
     secrets: inherit
   build_linux_amd64:
     if: ${{ inputs.build_linux_amd64 }}
-    uses: ./.github/workflows/Twinning/build.yml
+    uses: ./.github/workflows/Twinning.build.yml
     with:
       platform: linux.amd64
     secrets: inherit
   build_macintosh_arm64:
     if: ${{ inputs.build_macintosh_arm64 }}
-    uses: ./.github/workflows/Twinning/build.yml
+    uses: ./.github/workflows/Twinning.build.yml
     with:
       platform: macintosh.arm64
     secrets: inherit
   build_android_arm64:
     if: ${{ inputs.build_android_arm64 }}
-    uses: ./.github/workflows/Twinning/build.yml
+    uses: ./.github/workflows/Twinning.build.yml
     with:
       platform: android.arm64
     secrets: inherit
   build_iphone_arm64:
     if: ${{ inputs.build_iphone_arm64 }}
-    uses: ./.github/workflows/Twinning/build.yml
+    uses: ./.github/workflows/Twinning.build.yml
     with:
       platform: iphone.arm64
     secrets: inherit

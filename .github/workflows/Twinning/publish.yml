@@ -1,6 +1,0 @@
-on:
-  workflow_dispatch:
-jobs:
-  build:
-    runs-on: windows-latest
-    steps:
