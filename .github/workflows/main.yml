@@ -2,22 +2,27 @@ on:
   workflow_dispatch:
     inputs:
       build_windows_amd64:
+        description: windows_amd64
         required: true
         type: boolean
         default: false
       build_linux_amd64:
+        description: build_linux_amd64
         required: true
         type: boolean
         default: false
       build_macintosh_arm64:
+        description: build_macintosh_arm64
         required: true
         type: boolean
         default: false
       build_android_arm64:
+        description: build_android_arm64
         required: true
         type: boolean
         default: false
       build_iphone_arm64:
+        description: build_iphone_arm64
         required: true
         type: boolean
         default: false
