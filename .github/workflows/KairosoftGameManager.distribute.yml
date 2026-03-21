@@ -102,6 +102,7 @@ jobs:
         if: ${{ true }}
         uses: ./.github/actions/upload_file
         with:
+          enss: false
           path: ${{ github.workspace }}/repository/.local/distribution/*
           target: action
           action_destination: ${{ inputs.platform }}.distribution
