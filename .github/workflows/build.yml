@@ -1,5 +1,3 @@
-name: build x
-description: zxz
 on:
   workflow_call:
     inputs:
