@@ -4,16 +4,12 @@ inputs:
   source_file_pfx:
     required: true
   source_password_pfx:
-    description: source_password_pfx
     required: true
   source_file_jks:
-    description: source_file_jks
     required: true
   source_password_jks:
-    description: source_password_jks
     required: true
   destination:
-    description: destination
     required: true
 runs:
   using: composite

@@ -1,15 +1,11 @@
 inputs:
   host:
-    description: host
     required: true
   version:
-    description: version
     required: true
   build_version:
-    description: build_version
     required: true
   ndk_version:
-    description: ndk_version
     required: true
 runs:
   using: composite
