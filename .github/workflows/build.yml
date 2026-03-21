@@ -70,7 +70,7 @@ jobs:
         with:
           host: ${{ env.host }}
           version: '21'
-          windows_version: '20251216'
+          windows_version: '21.1.8-20251216'
       - name: setup xmake
         if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_xmake

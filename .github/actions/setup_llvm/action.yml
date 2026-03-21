@@ -15,11 +15,7 @@ runs:
       if: ${{ inputs.host == 'windows' }}
       shell: pwsh
       run: |
-        New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/development"
-        Invoke-WebRequest -Uri "https://github.com/mstorsjo/llvm-mingw/releases/download/${{ inputs.windows_version }}/llvm-mingw-${{ inputs.windows_version }}-ucrt-x86_64.zip" -OutFile "${{ github.workspace }}/.local/development/llvm-mingw.zip"
-        Expand-Archive -Force -Path "${{ github.workspace }}/.local/development/llvm-mingw.zip" -DestinationPath "${{ github.workspace }}/.local/development"
-        Remove-Item "${{ github.workspace }}/.local/development/llvm-mingw.zip"
-        Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "${{ github.workspace }}/.local/development/llvm-mingw-${{ inputs.windows_version }}-ucrt-x86_64/bin"
+        winget install --id "MartinStorsjo.LLVM-MinGW.UCRT" --version "${{ inputs.windows_version }}" --exact --silent --accept-source-agreements --disable-interactivity
     - name: install
       if: ${{ inputs.host == 'linux' }}
       shell: pwsh
