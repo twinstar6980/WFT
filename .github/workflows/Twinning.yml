@@ -2,7 +2,7 @@ name: Twinning
 on:
   workflow_dispatch:
     inputs:
-      repository_url:
+      repository:
         required: true
         type: string
         default: 'https://github.com/twinstar6980/Twinning'
@@ -31,29 +31,34 @@ jobs:
     if: ${{ inputs.distribute_windows_amd64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
+      repository: ${{ inputs.repository }}
       platform: windows.amd64
     secrets: inherit
   distribute_linux_amd64:
     if: ${{ inputs.distribute_linux_amd64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
+      repository: ${{ inputs.repository }}
       platform: linux.amd64
     secrets: inherit
   distribute_macintosh_arm64:
     if: ${{ inputs.distribute_macintosh_arm64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
+      repository: ${{ inputs.repository }}
       platform: macintosh.arm64
     secrets: inherit
   distribute_android_arm64:
     if: ${{ inputs.distribute_android_arm64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
+      repository: ${{ inputs.repository }}
       platform: android.arm64
     secrets: inherit
   distribute_iphone_arm64:
     if: ${{ inputs.distribute_iphone_arm64 }}
     uses: ./.github/workflows/Twinning.distribute.yml
     with:
+      repository: ${{ inputs.repository }}
       platform: iphone.arm64
     secrets: inherit
