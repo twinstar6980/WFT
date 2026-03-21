@@ -1,5 +1,3 @@
-name: setup_windowssdk xx
-description: setup_windowssdk yy
 inputs:
   host:
     required: true
