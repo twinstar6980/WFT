@@ -73,12 +73,12 @@ jobs:
         with:
           host: ${{ env.host }}
           version: '3.0.7'
-      - name: setup typescript
+      - name: setup nodejs
         if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
-        uses: ./.github/actions/setup_typescript
+        uses: ./.github/actions/setup_nodejs
         with:
           host: ${{ env.host }}
-          version: '5.9.3'
+          version: '25.8.1'
       - name: setup flutter
         if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_flutter
@@ -129,6 +129,6 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v6
         with:
-          name: ${{ inputs.platform }}.zip
+          name: ${{ inputs.platform }}.distribution
           path: |
-            ${{ env.repository_path }}/.local/distribution/${{ inputs.platform }}.bundle.zip
+            ${{ env.repository_path }}/.local/distribution/*
