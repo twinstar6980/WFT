@@ -1,0 +1,35 @@
+inputs:
+  path:
+    required: true
+  target:
+    required: true
+  action_destination:
+    required: true
+  webdav_endpoint:
+    required: true
+  webdav_username:
+    required: true
+  webdav_password:
+    required: true
+  webdav_destination:
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: upload
+      if: ${{ inputs.target == 'action' }}
+      uses: actions/upload-artifact@v6
+      with:
+        name: ${{ inputs.action_destination }}
+        path: ${{ inputs.path }}
+    - name: upload
+      if: ${{ inputs.target == 'webdav' }}
+      uses: bxb100/action-upload@v0
+      with:
+        provider: webdav
+        provider_options: |
+          endpoint=${{ inputs.webdav_endpoint }}
+          username=${{ inputs.webdav_username }}
+          password=${{ inputs.webdav_password }}
+          root=${{ inputs.webdav_destination }}
+        include: ${{ inputs.path }}

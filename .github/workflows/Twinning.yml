@@ -2,54 +2,58 @@ name: Twinning
 on:
   workflow_dispatch:
     inputs:
-      build_windows_amd64:
+      repository_url:
+        required: true
+        type: string
+        default: 'https://github.com/twinstar6980/Twinning'
+      distribute_windows_amd64:
         required: true
         type: boolean
         default: false
-      build_linux_amd64:
+      distribute_linux_amd64:
         required: true
         type: boolean
         default: false
-      build_macintosh_arm64:
+      distribute_macintosh_arm64:
         required: true
         type: boolean
         default: false
-      build_android_arm64:
+      distribute_android_arm64:
         required: true
         type: boolean
         default: false
-      build_iphone_arm64:
+      distribute_iphone_arm64:
         required: true
         type: boolean
         default: false
 jobs:
-  build_windows_amd64:
-    if: ${{ inputs.build_windows_amd64 }}
-    uses: ./.github/workflows/Twinning.build.yml
+  distribute_windows_amd64:
+    if: ${{ inputs.distribute_windows_amd64 }}
+    uses: ./.github/workflows/Twinning.distribute.yml
     with:
       platform: windows.amd64
     secrets: inherit
-  build_linux_amd64:
-    if: ${{ inputs.build_linux_amd64 }}
-    uses: ./.github/workflows/Twinning.build.yml
+  distribute_linux_amd64:
+    if: ${{ inputs.distribute_linux_amd64 }}
+    uses: ./.github/workflows/Twinning.distribute.yml
     with:
       platform: linux.amd64
     secrets: inherit
-  build_macintosh_arm64:
-    if: ${{ inputs.build_macintosh_arm64 }}
-    uses: ./.github/workflows/Twinning.build.yml
+  distribute_macintosh_arm64:
+    if: ${{ inputs.distribute_macintosh_arm64 }}
+    uses: ./.github/workflows/Twinning.distribute.yml
     with:
       platform: macintosh.arm64
     secrets: inherit
-  build_android_arm64:
-    if: ${{ inputs.build_android_arm64 }}
-    uses: ./.github/workflows/Twinning.build.yml
+  distribute_android_arm64:
+    if: ${{ inputs.distribute_android_arm64 }}
+    uses: ./.github/workflows/Twinning.distribute.yml
     with:
       platform: android.arm64
     secrets: inherit
-  build_iphone_arm64:
-    if: ${{ inputs.build_iphone_arm64 }}
-    uses: ./.github/workflows/Twinning.build.yml
+  distribute_iphone_arm64:
+    if: ${{ inputs.distribute_iphone_arm64 }}
+    uses: ./.github/workflows/Twinning.distribute.yml
     with:
       platform: iphone.arm64
     secrets: inherit

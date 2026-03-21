@@ -2,14 +2,18 @@ name: KairosoftGameManager
 on:
   workflow_dispatch:
     inputs:
-      build_windows_amd64:
+      repository_url:
+        required: true
+        type: string
+        default: 'https://github.com/twinstar6980/KairosoftGameManager'
+      distribute_windows_amd64:
         required: true
         type: boolean
         default: false
 jobs:
-  build_windows_amd64:
-    if: ${{ inputs.build_windows_amd64 }}
-    uses: ./.github/workflows/KairosoftGameManager.build.yml
+  distribute_windows_amd64:
+    if: ${{ inputs.distribute_windows_amd64 }}
+    uses: ./.github/workflows/KairosoftGameManager.distribute.yml
     with:
       platform: windows.amd64
     secrets: inherit

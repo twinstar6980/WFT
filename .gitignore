@@ -1,0 +1,10 @@
+# Global
+
+# System - Windows
+/**/desktop.ini
+
+# System - Macintosh
+/**/.DS_Store
+
+# Environment - Git
+/.git
