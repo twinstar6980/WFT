@@ -1,6 +1,7 @@
+name: download_certificate xx
+description: _
 inputs:
   source_file_pfx:
-    description: source_file_pfx
     required: true
   source_password_pfx:
     description: source_password_pfx
