@@ -21,17 +21,17 @@ env:
       "linux.amd64": "linux",
       "macintosh.arm64": "macintosh",
       "android.arm64": "windows",
-      "iphone.arm64": "macintosh"
+      "iphone.arm64": "macintosh",
     }')[inputs.platform] }}
 jobs:
-  build:
+  main:
     runs-on: |-
       ${{ fromJSON('{
         "windows.amd64": "windows-2025-vs2026",
         "linux.amd64": "ubuntu-24.04",
         "macintosh.arm64": "macos-26",
         "android.arm64": "windows-2025-vs2026",
-        "iphone.arm64": "macos-26"
+        "iphone.arm64": "macos-26",
       }')[inputs.platform] }}
     env:
       repository_name: Twinning

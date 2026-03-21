@@ -6,11 +6,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: check
-      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
-      shell: pwsh
-      run: |
-        node -v
     - name: install
       if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
       uses: actions/setup-node@v6

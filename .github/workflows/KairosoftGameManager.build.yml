@@ -20,7 +20,7 @@ env:
       "windows.amd64": "windows",
     }')[inputs.platform] }}
 jobs:
-  build:
+  main:
     runs-on: |-
       ${{ fromJSON('{
         "windows.amd64": "windows-2025-vs2026",
