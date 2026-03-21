@@ -1,5 +1,5 @@
 inputs:
-  host:
+  host_platform:
     required: true
   version:
     required: true
@@ -9,13 +9,13 @@ runs:
   using: composite
   steps:
     - name: install
-      if: ${{ inputs.host == 'windows' }}
+      if: ${{ inputs.host_platform == 'windows' }}
       shell: pwsh
       run: |
         winget install --id "MartinStorsjo.LLVM-MinGW.UCRT" --version "${{ inputs.windows_version }}" --source winget --exact --silent --accept-source-agreements --disable-interactivity
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "$((Resolve-Path -Path "$env:LOCALAPPDATA/Microsoft/WinGet/Packages/MartinStorsjo.LLVM-MinGW.UCRT_Microsoft.Winget.Source_8wekyb3d8bbwe/llvm-mingw-*/bin").Path)"
     - name: install
-      if: ${{ inputs.host == 'linux' }}
+      if: ${{ inputs.host_platform == 'linux' }}
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Force -Path "${{ github.workspace }}/.local/temporary"
@@ -25,13 +25,13 @@ runs:
         Remove-Item "${{ github.workspace }}/.local/temporary/llvm.sh"
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/usr/lib/llvm-${{ inputs.version }}/bin"
     - name: install
-      if: ${{ inputs.host == 'macintosh' }}
+      if: ${{ inputs.host_platform == 'macintosh' }}
       shell: pwsh
       run: |
         brew install llvm@${{ inputs.version }}
         Add-Content -Encoding utf8 -Path $env:GITHUB_PATH -Value "/opt/homebrew/opt/llvm@${{ inputs.version }}/bin"
     - name: check
-      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
+      if: ${{ inputs.host_platform == 'windows' || inputs.host_platform == 'linux' || inputs.host_platform == 'macintosh' }}
       shell: pwsh
       run: |
         clang --version

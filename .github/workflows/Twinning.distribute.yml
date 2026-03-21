@@ -2,12 +2,18 @@ name: Twinning - distribute
 on:
   workflow_call:
     inputs:
-      repository:
+      repository_url:
         required: true
         type: string
-      platform:
+      target_platform:
         required: true
         type: string
+      enable_certificate:
+        required: true
+        type: boolean
+      enable_webdav:
+        required: true
+        type: boolean
     secrets:
       certificate_file_pfx:
         required: false
@@ -24,27 +30,14 @@ on:
       webdav_password:
         required: false
 env:
-  host: |-
+  host_platform: |-
     ${{ fromJSON('{
       "windows.amd64": "windows",
       "linux.amd64": "linux",
       "macintosh.arm64": "macintosh",
       "android.arm64": "windows",
       "iphone.arm64": "macintosh",
-    }')[inputs.platform] }}
-  certificate_available: |-
-    ${{ true
-      && secrets.certificate_file_pfx != ''
-      && secrets.certificate_password_pfx != ''
-      && secrets.certificate_file_jks != ''
-      && secrets.certificate_password_jks != ''
-    }}
-  webdav_available: |-
-    ${{ true
-      && secrets.webdav_endpoint != ''
-      && secrets.webdav_username != ''
-      && secrets.webdav_password != ''
-    }}
+    }')[inputs.target_platform] }}
 jobs:
   main:
     runs-on: |-
@@ -54,87 +47,87 @@ jobs:
         "macintosh.arm64": "macos-26",
         "android.arm64": "windows-2025-vs2026",
         "iphone.arm64": "macos-26",
-      }')[inputs.platform] }}
+      }')[inputs.target_platform] }}
     steps:
       - name: check out
         if: ${{ true }}
         uses: actions/checkout@v4
       - name: setup python
-        if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' || inputs.target_platform == 'linux.amd64' || inputs.target_platform == 'macintosh.arm64' || inputs.target_platform == 'android.arm64' || inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_python
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '3.14.3'
       - name: setup windows-sdk
-        if: ${{ inputs.platform == 'windows.amd64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' }}
         uses: ./.github/actions/setup_windowssdk
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '26100'
       - name: setup android-sdk
-        if: ${{ inputs.platform == 'android.arm64' }}
+        if: ${{ inputs.target_platform == 'android.arm64' }}
         uses: ./.github/actions/setup_androidsdk
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '36.1'
           build_version: '36.1.0'
           ndk_version: '29.0.14206865'
       - name: setup llvm
-        if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' || inputs.target_platform == 'linux.amd64' || inputs.target_platform == 'macintosh.arm64' || inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_llvm
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '21'
           windows_version: '21.1.8-20251216'
       - name: setup xmake
-        if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' || inputs.target_platform == 'linux.amd64' || inputs.target_platform == 'macintosh.arm64' || inputs.target_platform == 'android.arm64' || inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_xmake
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '3.0.7'
       - name: setup nodejs
-        if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' || inputs.target_platform == 'linux.amd64' || inputs.target_platform == 'macintosh.arm64' || inputs.target_platform == 'android.arm64' || inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_nodejs
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '25.8.1'
       - name: setup flutter
-        if: ${{ inputs.platform == 'windows.amd64' || inputs.platform == 'linux.amd64' || inputs.platform == 'macintosh.arm64' || inputs.platform == 'android.arm64' || inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' || inputs.target_platform == 'linux.amd64' || inputs.target_platform == 'macintosh.arm64' || inputs.target_platform == 'android.arm64' || inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_flutter
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '3.41.4'
       - name: setup msbuild
-        if: ${{ inputs.platform == 'windows.amd64' }}
+        if: ${{ inputs.target_platform == 'windows.amd64' }}
         uses: ./.github/actions/setup_msbuild
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '18.3.0'
       - name: setup xcode
-        if: ${{ inputs.platform == 'macintosh.arm64' || inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'macintosh.arm64' || inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_xcode
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: '26.3'
       - name: setup create-dmg
-        if: ${{ inputs.platform == 'macintosh.arm64' }}
+        if: ${{ inputs.target_platform == 'macintosh.arm64' }}
         uses: ./.github/actions/setup_createdmg
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: 'latest'
       - name: setup ldid
-        if: ${{ inputs.platform == 'iphone.arm64' }}
+        if: ${{ inputs.target_platform == 'iphone.arm64' }}
         uses: ./.github/actions/setup_ldid
         with:
-          host: ${{ env.host }}
+          host_platform: ${{ env.host_platform }}
           version: 'latest'
       - name: clone repository
         if: ${{ true }}
         shell: pwsh
         run: |
-          git clone "${{ inputs.repository }}" "${{ github.workspace }}/repository"
+          git clone "${{ inputs.repository_url }}" "${{ github.workspace }}/repository"
       - name: download certificate
-        if: ${{ fromJSON(env.certificate_available) }}
+        if: ${{ inputs.enable_certificate }}
         uses: ./.github/actions/download_certificate
         with:
           source_file_pfx: ${{ secrets.certificate_file_pfx }}
@@ -146,9 +139,9 @@ jobs:
         if: ${{ true }}
         shell: pwsh
         run: |
-          python3 "${{ github.workspace }}/repository/BUILD.py" "${{ inputs.platform }}"
+          python3 "${{ github.workspace }}/repository/BUILD.py" "${{ inputs.target_platform }}"
       - name: upload to webdav
-        if: ${{ fromJSON(env.webdav_available) }}
+        if: ${{ inputs.enable_webdav }}
         uses: ./.github/actions/upload_file
         with:
           path: ${{ github.workspace }}/repository/.local/distribution/*
@@ -163,4 +156,4 @@ jobs:
         with:
           path: ${{ github.workspace }}/repository/.local/distribution/*
           target: action
-          action_destination: ${{ inputs.platform }}.distribution
+          action_destination: ${{ inputs.target_platform }}.distribution

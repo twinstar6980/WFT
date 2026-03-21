@@ -2,11 +2,19 @@ name: KairosoftGameManager
 on:
   workflow_dispatch:
     inputs:
-      repository:
+      repository_url:
         required: true
         type: string
         default: 'https://github.com/twinstar6980/KairosoftGameManager'
       distribute_windows_amd64:
+        required: true
+        type: boolean
+        default: false
+      enable_certificate:
+        required: true
+        type: boolean
+        default: false
+      enable_webdav:
         required: true
         type: boolean
         default: false
@@ -15,6 +23,8 @@ jobs:
     if: ${{ inputs.distribute_windows_amd64 }}
     uses: ./.github/workflows/KairosoftGameManager.distribute.yml
     with:
-      repository: ${{ inputs.repository }}
-      platform: windows.amd64
+      repository_url: ${{ inputs.repository_url }}
+      target_platform: windows.amd64
+      enable_certificate: ${{ inputs.enable_certificate }}
+      enable_webdav: ${{ inputs.enable_webdav }}
     secrets: inherit

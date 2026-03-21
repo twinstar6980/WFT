@@ -1,5 +1,5 @@
 inputs:
-  host:
+  host_platform:
     required: true
   version:
     required: true
@@ -7,18 +7,18 @@ runs:
   using: composite
   steps:
     - name: install
-      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
+      if: ${{ inputs.host_platform == 'windows' || inputs.host_platform == 'linux' || inputs.host_platform == 'macintosh' }}
       uses: subosito/flutter-action@v2
       with:
         channel: stable
         flutter-version: ${{ inputs.version }}
     - name: install
-      if: ${{ inputs.host == 'linux' }}
+      if: ${{ inputs.host_platform == 'linux' }}
       shell: pwsh
       run: |
         sudo apt install libgtk-3-dev
     - name: check
-      if: ${{ inputs.host == 'windows' || inputs.host == 'linux' || inputs.host == 'macintosh' }}
+      if: ${{ inputs.host_platform == 'windows' || inputs.host_platform == 'linux' || inputs.host_platform == 'macintosh' }}
       shell: pwsh
       run: |
         flutter doctor -v
