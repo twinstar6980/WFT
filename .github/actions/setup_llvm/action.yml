@@ -15,7 +15,7 @@ runs:
       if: ${{ inputs.host == 'windows' }}
       shell: pwsh
       run: |
-        winget install --id "MartinStorsjo.LLVM-MinGW.UCRT" --version "${{ inputs.windows_version }}" --exact --silent --accept-source-agreements --disable-interactivity
+        winget install --id "MartinStorsjo.LLVM-MinGW.UCRT" --version "${{ inputs.windows_version }}" --souurce winget --exact --silent --accept-source-agreements --disable-interactivity
     - name: install
       if: ${{ inputs.host == 'linux' }}
       shell: pwsh
