@@ -3,6 +3,8 @@ inputs:
     required: true
   target:
     required: true
+  release_tag:
+    required: true
   action_destination:
     required: true
   webdav_endpoint:
@@ -27,7 +29,7 @@ runs:
       if: ${{ inputs.target == 'release' }}
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: testtag
+        tag_name: ${{ inputs.release_tag }}
         files: ${{ inputs.path }}
     - name: upload
       if: ${{ inputs.target == 'webdav' }}

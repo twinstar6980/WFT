@@ -97,6 +97,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/repository/.local/distribution/*
           target: release
+          release_tag: test_KairosoftGameManager
       - name: upload to webdav
         if: ${{ inputs.enable_webdav }}
         uses: ./.github/actions/upload_file

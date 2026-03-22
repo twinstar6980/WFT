@@ -156,6 +156,7 @@ jobs:
         with:
           path: ${{ github.workspace }}/repository/.local/distribution/${{ inputs.target_platform }}.bundle.zip
           target: release
+          release_tag: test_Twinning
       - name: upload to webdav
         if: ${{ inputs.enable_webdav }}
         uses: ./.github/actions/upload_file

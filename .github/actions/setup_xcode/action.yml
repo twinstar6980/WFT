@@ -17,3 +17,4 @@ runs:
       run: |
         xcodebuild -version
         xcodebuild -showsdks
+        codesign --help
