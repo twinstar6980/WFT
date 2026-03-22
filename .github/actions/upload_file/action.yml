@@ -27,6 +27,7 @@ runs:
       if: ${{ inputs.target == 'release' }}
       uses: softprops/action-gh-release@v2
       with:
+        tag_name: testtag
         files: ${{ inputs.path }}
     - name: upload
       if: ${{ inputs.target == 'webdav' }}
