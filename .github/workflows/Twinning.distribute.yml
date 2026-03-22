@@ -8,6 +8,9 @@ on:
       enable_certificate:
         required: true
         type: boolean
+      enable_release:
+        required: true
+        type: boolean
       enable_webdav:
         required: true
         type: boolean
@@ -140,6 +143,19 @@ jobs:
         shell: pwsh
         run: |
           python3 "${{ github.workspace }}/repository/BUILD.py" "${{ inputs.target_platform }}"
+      - name: upload to action
+        if: ${{ true }}
+        uses: ./.github/actions/upload_file
+        with:
+          path: ${{ github.workspace }}/repository/.local/distribution/${{ inputs.target_platform }}.bundle.zip
+          target: action
+          action_destination: ${{ inputs.target_platform }}.distribution
+      - name: upload to release
+        if: ${{ true }}
+        uses: ./.github/actions/upload_file
+        with:
+          path: ${{ github.workspace }}/repository/.local/distribution/${{ inputs.target_platform }}.bundle.zip
+          target: release
       - name: upload to webdav
         if: ${{ inputs.enable_webdav }}
         uses: ./.github/actions/upload_file
@@ -150,10 +166,3 @@ jobs:
           webdav_username: ${{ secrets.webdav_username }}
           webdav_password: ${{ secrets.webdav_password }}
           webdav_destination: '/Twinning'
-      - name: upload to action
-        if: ${{ true }}
-        uses: ./.github/actions/upload_file
-        with:
-          path: ${{ github.workspace }}/repository/.local/distribution/${{ inputs.target_platform }}.bundle.zip
-          target: action
-          action_destination: ${{ inputs.target_platform }}.distribution

@@ -24,6 +24,11 @@ runs:
         path: ${{ inputs.path }}
         archive: false
     - name: upload
+      if: ${{ inputs.target == 'release' }}
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ${{ inputs.path }}
+    - name: upload
       if: ${{ inputs.target == 'webdav' }}
       uses: bxb100/action-upload@v0
       with:
