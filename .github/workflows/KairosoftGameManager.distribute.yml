@@ -90,7 +90,7 @@ jobs:
           webdav_endpoint: ${{ secrets.webdav_endpoint }}
           webdav_username: ${{ secrets.webdav_username }}
           webdav_password: ${{ secrets.webdav_password }}
-          webdav_destination: '/ghatest'
+          webdav_destination: '/KairosoftGameManager'
       - name: upload to action
         if: ${{ true }}
         uses: ./.github/actions/upload_file

@@ -18,10 +18,11 @@ runs:
   steps:
     - name: upload
       if: ${{ inputs.target == 'action' }}
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ inputs.action_destination }}
         path: ${{ inputs.path }}
+        archive: false
     - name: upload
       if: ${{ inputs.target == 'webdav' }}
       uses: bxb100/action-upload@v0

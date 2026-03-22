@@ -96,7 +96,7 @@ jobs:
         uses: ./.github/actions/setup_flutter
         with:
           host_platform: ${{ env.host_platform }}
-          version: '3.41.4'
+          version: '3.41.5'
       - name: setup msbuild
         if: ${{ inputs.target_platform == 'windows.amd64' }}
         uses: ./.github/actions/setup_msbuild
@@ -144,16 +144,16 @@ jobs:
         if: ${{ inputs.enable_webdav }}
         uses: ./.github/actions/upload_file
         with:
-          path: ${{ github.workspace }}/repository/.local/distribution/*
+          path: ${{ github.workspace }}/repository/.local/distribution/${{ inputs.target_platform }}.bundle.zip
           target: webdav
           webdav_endpoint: ${{ secrets.webdav_endpoint }}
           webdav_username: ${{ secrets.webdav_username }}
           webdav_password: ${{ secrets.webdav_password }}
-          webdav_destination: '/ghatest'
+          webdav_destination: '/Twinning'
       - name: upload to action
         if: ${{ true }}
         uses: ./.github/actions/upload_file
         with:
-          path: ${{ github.workspace }}/repository/.local/distribution/*
+          path: ${{ github.workspace }}/repository/.local/distribution/${{ inputs.target_platform }}.bundle.zip
           target: action
           action_destination: ${{ inputs.target_platform }}.distribution
