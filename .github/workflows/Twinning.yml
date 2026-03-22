@@ -10,6 +10,10 @@ on:
         required: true
         type: boolean
         default: false
+      enable_release:
+        required: true
+        type: boolean
+        default: false
       enable_webdav:
         required: true
         type: boolean
@@ -41,6 +45,7 @@ jobs:
     with:
       repository_url: ${{ inputs.repository_url }}
       enable_certificate: ${{ inputs.enable_certificate }}
+      enable_release: ${{ inputs.enable_release }}
       enable_webdav: ${{ inputs.enable_webdav }}
       target_platform: windows.amd64
     secrets: inherit
@@ -50,6 +55,7 @@ jobs:
     with:
       repository_url: ${{ inputs.repository_url }}
       enable_certificate: ${{ inputs.enable_certificate }}
+      enable_release: ${{ inputs.enable_release }}
       enable_webdav: ${{ inputs.enable_webdav }}
       target_platform: linux.amd64
     secrets: inherit
@@ -59,6 +65,7 @@ jobs:
     with:
       repository_url: ${{ inputs.repository_url }}
       enable_certificate: ${{ inputs.enable_certificate }}
+      enable_release: ${{ inputs.enable_release }}
       enable_webdav: ${{ inputs.enable_webdav }}
       target_platform: macintosh.arm64
     secrets: inherit
@@ -68,6 +75,7 @@ jobs:
     with:
       repository_url: ${{ inputs.repository_url }}
       enable_certificate: ${{ inputs.enable_certificate }}
+      enable_release: ${{ inputs.enable_release }}
       enable_webdav: ${{ inputs.enable_webdav }}
       target_platform: android.arm64
     secrets: inherit
@@ -77,6 +85,7 @@ jobs:
     with:
       repository_url: ${{ inputs.repository_url }}
       enable_certificate: ${{ inputs.enable_certificate }}
+      enable_release: ${{ inputs.enable_release }}
       enable_webdav: ${{ inputs.enable_webdav }}
       target_platform: iphone.arm64
     secrets: inherit
